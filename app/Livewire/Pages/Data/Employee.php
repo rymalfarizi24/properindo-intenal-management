@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Pages\Data;
 
+use Livewire\Attributes\Url;
 use Livewire\Component;
 
 class Employee extends Component

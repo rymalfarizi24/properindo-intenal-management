@@ -1,4 +1,58 @@
 <div>
+    {{-- Search & Filter --}}
+    <div class="flex flex-col gap-3 sm:flex-row mb-6">
+
+        {{-- Search --}}
+        <div class="flex-1">
+            <input type="text" wire:model.live.debounce.300ms="search" placeholder="Search employee..."
+                class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+        </div>
+
+        {{-- Department --}}
+        <div class="sm:w-48">
+            <select wire:model.live="department"
+                class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                <option value="">All Departments</option>
+
+                @foreach ($departments as $department)
+                <option value="{{ $department }}">
+                    {{ $department }}
+                </option>
+                @endforeach
+            </select>
+        </div>
+
+        {{-- Role --}}
+        <div class="sm:w-48">
+            <select wire:model.live="role"
+                class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                <option value="">All Roles</option>
+                <option value="employee">Employee</option>
+                <option value="admin">Admin</option>
+                <option value="supervisor">Supervisor</option>
+            </select>
+        </div>
+
+        {{-- Status --}}
+        <div class="sm:w-48">
+            <select wire:model.live="status"
+                class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                <option value="">All Status</option>
+                <option value="1">Active</option>
+                <option value="0">Inactive</option>
+            </select>
+        </div>
+
+        {{-- Reset --}}
+        <div class="flex items-end">
+            <button type="button" wire:click="resetFilters"
+                class="px-4 py-2.5 cursor-pointer text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-lg hover:bg-gray-200 focus:ring-4 focus:ring-gray-200">
+                Reset
+            </button>
+        </div>
+
+    </div>
+
     <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
         <table class="w-full text-sm text-left rtl:text-right text-body">
             <thead class="text-sm text-body bg-neutral-secondary-medium border-b border-default-medium">

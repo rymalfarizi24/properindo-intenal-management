@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -43,5 +43,33 @@ class Employee extends Authenticatable
         return [
             'password' => 'hashed',
         ];
+    }
+
+    public static function getDepartments()
+    {
+        return self::select('department')
+            ->distinct()
+            ->pluck('department')
+            ->toArray();
+    }
+
+    public function scopeFilter(Builder $query, array $filters): void
+    {
+        $query->when($filters['search'] ?? false, function ($query, $search) {
+            $query->where('name', 'like', "%$search%")
+                ->orWhere('email', 'like', "%$search%");
+        });
+
+        $query->when($filters['department'] ?? false, function ($query, $department) {
+            $query->where('department', $department);
+        });
+
+        $query->when($filters['role'] ?? false, function ($query, $role) {
+            $query->where('role', $role);
+        });
+
+        $query->when($filters['status'] !== '', function ($query) use ($filters) {
+            $query->where('status', $filters['status']);
+        });
     }
 }

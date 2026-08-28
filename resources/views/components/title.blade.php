@@ -1,1 +1,1 @@
-<h1 class="pb-3 text-4xl font-bold tracking-tight text-gray-900">{{ $slot }}</h1>
+<h1 class="py-3 text-4xl font-bold tracking-tight text-gray-900">{{ $slot }}</h1>

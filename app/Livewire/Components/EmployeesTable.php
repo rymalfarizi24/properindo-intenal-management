@@ -5,6 +5,7 @@ namespace App\Livewire\Components;
 use App\Models\Employee;
 use App\Support\SupabaseStorage;
 use Livewire\Attributes\Reactive;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -12,26 +13,50 @@ class EmployeesTable extends Component
 {
     use WithPagination;
 
-    #[Reactive]
-    public $search = '';
+    #[Url]
+    public string $search = '';
+    #[Url]
+    public string $department = '';
+    #[Url]
+    public string $role = '';
+    #[Url]
+    public string $status = '';
 
-    #[Reactive]
-    public $category = '';
+    public array $departments = [];
 
-    public $lastSearch = '';
-    public $lastCategory = '';
+
+    public function mount()
+    {
+        $this->departments = Employee::getDepartments();
+    }
 
     public function render()
     {
-        return view('livewire.components.employees-table', [
-            'employees' => Employee::latest()->paginate(5)
-        ]);
+        $employees = Employee::filter([
+            'search' => $this->search,
+            'department' => $this->department,
+            'role' => $this->role,
+            'status' => $this->status,
+        ])
+            ->latest()
+            ->paginate(5);
+
+        $this->resetPage();
+
+        return view('livewire.components.employees-table', compact('employees'));
     }
 
     public function placeholder()
     {
         return view('components.placeholder.employees-table');
     }
+
+    public function resetFilters()
+    {
+        $this->reset(['search', 'department', 'role', 'status']);
+        $this->resetPage();
+    }
+
 
     public function destroy($id)
     {
