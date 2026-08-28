@@ -27,7 +27,6 @@ Route::get('/contact', Contact::class)->name('contact');
 
 // Authentication
 Route::get('/sign-in', SignIn::class)->name('login')->middleware('guest');
-Route::get('/sign-up', SignUp::class)->middleware('guest');
 Route::post('/sign-out', function (Request $request) {
     Auth::logout();
     $request->session()->invalidate();
@@ -37,7 +36,7 @@ Route::post('/sign-out', function (Request $request) {
 
 Route::get('/profile', Profile::class)->middleware('auth')->name('profile');
 Route::get('/dashboard', DashboardHome::class)
-->defaults('scope', 'user')
+    ->defaults('scope', 'user')
     ->middleware('auth');
 
 Route::get('/dashboard/posts', DashboardPost::class)->middleware('auth')->name('posts-dashboard');
