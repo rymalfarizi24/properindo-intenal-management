@@ -19,6 +19,9 @@ return new class extends Migration
             $table->enum('status', ['pending', 'progress', 'completed'])->default('pending');
             $table->enum('priority', ['low', 'medium', 'high'])->default('medium');
             $table->timestamps();
+
+            $table->index('status');
+            $table->index('priority');
         });
     }
 

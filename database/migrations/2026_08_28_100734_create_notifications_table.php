@@ -18,6 +18,8 @@ return new class extends Migration
             $table->enum('type', ['reminder', 'alert', 'late'])->default('info');
             $table->text('message');
             $table->timestamps();
+
+            $table->index('type');
         });
     }
 
