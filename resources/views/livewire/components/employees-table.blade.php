@@ -61,7 +61,7 @@
                         {{ $employee->created_at->format('d/m/Y') }}
                     </td>
                     <td class="px-6 py-4">
-                        <x-dropdown :employee="$employee" />
+                        <x-dropdown :id="$employee->id" />
                     </td>
                 </tr>
                 @empty

@@ -1,5 +1,5 @@
 <div class="w-full mx-auto max-w-6xl">
-    <x-title>My Profile</x-title>
+    <x-title>{{ $name }} Profile</x-title>
     <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
         {{-- Profile Sidebar --}}
         <aside class="xl:col-span-1">

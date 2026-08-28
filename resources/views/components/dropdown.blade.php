@@ -1,4 +1,4 @@
-@props(['employee', 'href' => '/data/employees'])
+@props(['id', 'href' => '/data/employees'])
 
 <div class="relative flex justify-center" x-data="{ isDropdown: false }" x-on:click.outside="isDropdown = false">
     <button @click="isDropdown = !isDropdown"
@@ -11,7 +11,7 @@
         class="absolute z-20 mt-2 w-36 rounded-lg bg-white dark:bg-gray-800 overflow-hidden shadow-lg border border-gray-200">
 
         <!-- Edit -->
-        <a wire:navigate href="{{ $href . '/' . $employee->id }}/edit" class="flex items-center gap-2 px-4 py-2 text-sm 
+        <a wire:navigate href="{{ $href . '/' . $id }}/edit" class="flex items-center gap-2 px-4 py-2 text-sm 
                        text-blue-600 dark:text-blue-400
                        hover:bg-blue-50 dark:hover:bg-gray-700 transition">
             <x-icons.pen size='20' />
@@ -20,7 +20,7 @@
         <hr class="border-gray-200">
 
         {{-- Delete --}}
-        <x-delete-confirm :id="$employee->id"
+        <x-delete-confirm :id="$id"
             buttonClass="w-full cursor-pointer flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition" />
     </div>
 </div>
