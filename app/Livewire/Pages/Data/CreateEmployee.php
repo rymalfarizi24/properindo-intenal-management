@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Pages\Data;
 
+use App\Models\ActivityLog;
 use App\Models\Employee;
 use Livewire\Component;
 
@@ -37,11 +38,21 @@ class CreateEmployee extends Component
         ];
 
         $validated_data = $this->validate($rules);
+        $validated_data['status'] = $validated_data['status'] === '1';
 
-        Employee::create([
-            ...$validated_data,
-            'status' => $validated_data['status'] === '1',
-        ]);
+        try {
+            Employee::create($validated_data);
+
+            ActivityLog::create([
+                'employee_id' => auth()->user()->id,
+                'old_data' => null,
+                'new_data' => json_encode($validated_data),
+            ]);
+        } catch (\Exception $e) {
+            $this->dispatch('toast', type: 'error', message: $e->getMessage());
+            return;
+        }
+
         $this->dispatch('toast', type: 'success', message: 'Employee created successfully!');
     }
 }

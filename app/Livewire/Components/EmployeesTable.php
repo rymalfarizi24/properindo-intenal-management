@@ -62,15 +62,19 @@ class EmployeesTable extends Component
     {
         $employee = Employee::find($id, ['img']);
 
+        if (auth()->user()->id === $id) {
+            return $this->dispatch('toast', type: 'error', message: 'You cannot delete your own account');
+        }
+
         if (!$employee) {
-            return false;
+            return $this->dispatch('toast', type: 'error', message: 'Employee not found');
         }
 
         if ($employee->img) {
             $response = SupabaseStorage::disk('avatar')->delete($employee->img);
 
             if (!$response) {
-                return false;
+                return $this->dispatch('toast', type: 'error', message: 'Employee not found');
             }
         }
 
