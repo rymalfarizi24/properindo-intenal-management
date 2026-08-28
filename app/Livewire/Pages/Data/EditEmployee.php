@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Pages\Data;
 
+use App\Models\ActivityLog;
 use App\Models\Employee;
 use App\Support\SupabaseStorage;
 use Livewire\Component;
@@ -25,22 +26,24 @@ class EditEmployee extends Component
     public ?string $new_password = null;
     public ?string $confirm_password = null;
 
+    public array $employee;
+
     public function mount(?string $employee_id)
     {
         if ($employee_id) {
-            $employee = Employee::find($employee_id);
+            $this->employee = Employee::find($employee_id)->toArray();
         } else {
-            $employee = auth()->user();
+            $this->employee = auth()->user()->toArray();
         }
 
         $this->employee_id = $employee_id;
-        $this->name = $employee->name;
-        $this->department = $employee->department;
-        $this->position = $employee->position;
-        $this->role = $employee->role;
-        $this->status = $employee->status ? '1' : '0';
-        $this->email = $employee->email;
-        $this->lastImg = $employee->img ? SupabaseStorage::disk('avatar')->url($employee->img) : null;
+        $this->name = $this->employee['name'];
+        $this->department = $this->employee['department'];
+        $this->position = $this->employee['position'];
+        $this->role = $this->employee['role'];
+        $this->status = $this->employee['status'] ? '1' : '0';
+        $this->email = $this->employee['email'];
+        $this->lastImg = $this->employee['img'] ? SupabaseStorage::disk('avatar')->url($this->employee['img']) : null;
     }
 
     public function render()
@@ -60,12 +63,34 @@ class EditEmployee extends Component
         ];
 
         $validated_data = $this->validate($rules);
+        $validated_data['status'] = $validated_data['status'] === '1';
+        $changed_data = $this->getChangedData($this->employee, $validated_data);
 
-        Employee::where('id', $this->employee_id)->update([
-            ...$validated_data,
-            'status' => $validated_data['status'] === '1',
+        Employee::where('id', $this->employee_id)->update($changed_data['new']);
+        ActivityLog::create([
+            'changed_by' => auth()->user()->id,
+            'employee_id' => $this->employee_id,
+            'old_data' => json_encode($changed_data['old']),
+            'new_data' => json_encode($changed_data['new']),
+            'action' => 'update',
         ]);
         $this->dispatch('toast', type: 'success', message: 'Profile updated successfully!');
+    }
+
+    private function getChangedData($old_data, $new_data)
+    {
+        $changedOldData = [];
+        $changedNewData = [];
+
+        foreach ($new_data as $key => $newValue) {
+            $oldValue = $old_data[$key] ?? null;
+
+            if ($oldValue !== $newValue) {
+                $changedOldData[$key] = $oldValue;
+                $changedNewData[$key] = $newValue;
+            }
+        }
+        return ['old' => $changedOldData, 'new' => $changedNewData];
     }
 
     public function changePhoto()
@@ -82,6 +107,13 @@ class EditEmployee extends Component
         $path = SupabaseStorage::disk('avatar')->putFile($this->employee_id, $this->img, 'public');
 
         Employee::where('id', $this->employee_id)->update(['img' => $path]);
+        ActivityLog::create([
+            'changed_by' => auth()->user()->id,
+            'employee_id' => $this->employee_id,
+            'old_data' => json_encode(['img' => $this->lastImg]),
+            'new_data' => json_encode(['img' => $path]),
+            'action' => 'update',
+        ]);
 
         $this->dispatch('toast', type: 'success', message: 'Profile photo updated successfully!');
     }
@@ -95,6 +127,13 @@ class EditEmployee extends Component
         ]);
 
         Employee::where('id', $this->employee_id)->update(['password' => bcrypt($this->new_password)]);
+        ActivityLog::create([
+            'changed_by' => auth()->user()->id,
+            'employee_id' => $this->employee_id,
+            'old_data' => json_encode(['password' => '********']),
+            'new_data' => json_encode(['password' => '********']),
+            'action' => 'update',
+        ]);
 
         $this->dispatch('toast', type: 'success', message: 'Password updated successfully!');
     }

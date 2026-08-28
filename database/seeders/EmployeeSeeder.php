@@ -99,13 +99,21 @@ class EmployeeSeeder extends Seeder
                 'email' => 'karin@properindoenviro.co.id',
                 'status' => true,
             ],
+            [
+                'name' => 'Rayhan Muhammad Alfarizi',
+                'department' => 'Administration',
+                'position' => 'Admin Staff',
+                'email' => 'rayhanmalfarizi@gmail.com',
+                'role' => 'admin',
+                'status' => true,
+            ],
         ];
 
         foreach ($employees as $employee) {
             Employee::create([
                 ...$employee,
                 'img' => null,
-                'role' => 'employee',
+                'role' => $employee['role'] ?? 'employee',
                 'password' => Hash::make('password'),
             ]);
         }

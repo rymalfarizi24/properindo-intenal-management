@@ -32,7 +32,7 @@ class CreateEmployee extends Component
             'position' => ['required', 'max:50'],
             'role' => ['required', 'max:50'],
             'status' => ['required', 'in:0,1'],
-            'email' => ['required', 'email', 'max:100'],
+            'email' => ['required', 'email', 'unique:employees,email', 'max:100'],
             'password' => ['required', 'min:8'],
             'confirm_password' => ['required', 'same:password'],
         ];
@@ -40,18 +40,19 @@ class CreateEmployee extends Component
         $validated_data = $this->validate($rules);
         $validated_data['status'] = $validated_data['status'] === '1';
 
-        try {
-            Employee::create($validated_data);
+        Employee::create($validated_data);
 
-            ActivityLog::create([
-                'employee_id' => auth()->user()->id,
-                'old_data' => null,
-                'new_data' => json_encode($validated_data),
-            ]);
-        } catch (\Exception $e) {
-            $this->dispatch('toast', type: 'error', message: $e->getMessage());
-            return;
-        }
+        ActivityLog::create([
+            'changed_by' => auth()->user()->id,
+            'old_data' => null,
+            'new_data' => json_encode($validated_data),
+            'action' => 'create',
+        ]);
+        // try {
+        // } catch (\Exception $e) {
+        //     $this->dispatch('toast', type: 'error', message: $e->getMessage());
+        //     return;
+        // }
 
         $this->dispatch('toast', type: 'success', message: 'Employee created successfully!');
     }

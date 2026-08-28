@@ -2,9 +2,9 @@
 
 namespace App\Livewire\Components;
 
+use App\Models\ActivityLog;
 use App\Models\Employee;
 use App\Support\SupabaseStorage;
-use Livewire\Attributes\Reactive;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -60,9 +60,10 @@ class EmployeesTable extends Component
 
     public function destroy($id)
     {
-        $employee = Employee::find($id, ['img']);
+        $employee = Employee::find($id);
+        $changed_by = auth()->user()->id;
 
-        if (auth()->user()->id === $id) {
+        if ($changed_by === $id) {
             return $this->dispatch('toast', type: 'error', message: 'You cannot delete your own account');
         }
 
@@ -78,7 +79,14 @@ class EmployeesTable extends Component
             }
         }
 
+        ActivityLog::create([
+            'changed_by' => $changed_by,
+            'old_data' => json_encode($employee->toArray()),
+            'action' => 'delete',
+        ]);
+
         Employee::destroy($id);
+
 
         $this->dispatch('toast', type: 'success', message: 'Employee has been deleted succesfully');
     }

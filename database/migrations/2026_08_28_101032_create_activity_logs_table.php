@@ -13,9 +13,23 @@ return new class extends Migration
     {
         Schema::create('activity_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('employee_id')->constrained('employees')->onDelete('cascade');
+
+            // Karyawan/data yang diubah
+            $table->foreignId('employee_id')
+                ->nullable()
+                ->constrained('employees')
+                ->cascadeOnDelete();
+
+            // User/karyawan yang melakukan perubahan
+            $table->foreignId('changed_by')
+                ->constrained('employees')
+                ->nullOnDelete();
+
             $table->jsonb('old_data')->nullable();
             $table->jsonb('new_data')->nullable();
+
+            $table->enum('action', ['create', 'update', 'delete'])->default('update');
+
             $table->timestamp('created_at')->useCurrent();
         });
     }
