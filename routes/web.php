@@ -1,27 +1,29 @@
 <?php
 
-use App\Livewire\Pages\About;
-use App\Livewire\Pages\Blog;
-use App\Livewire\Pages\Blogs;
-use App\Livewire\Pages\Contact;
 use App\Livewire\Pages\Dashboard\Category as DashboardCategory;
+use App\Livewire\Pages\Dashboard\EmployeeDashboard;
 use App\Livewire\Pages\Dashboard\Home as DashboardHome;
 use App\Livewire\Pages\Dashboard\Posts\Create as CreatePost;
 use App\Livewire\Pages\Dashboard\Posts\Edit as EditPost;
 use App\Livewire\Pages\Dashboard\Posts\Index as DashboardPost;
 use App\Livewire\Pages\Dashboard\Posts\Show as ShowPost;
 use App\Livewire\Pages\Dashboard\Profile;
-use App\Livewire\Pages\Home;
+use App\Livewire\Pages\Dashboard\TaskDashboard;
+use App\Livewire\Pages\Data\Employee;
+use App\Livewire\Pages\Data\Task;
 use App\Livewire\Pages\SignIn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', Home::class)->name('home');
-Route::get('/about', About::class)->name('about');
-Route::get('/blogs', Blogs::class)->name('blogs');
-Route::get('/blog/{post:slug}', Blog::class)->name('blog');
-Route::get('/contact', Contact::class)->name('contact');
+Route::get('/', EmployeeDashboard::class)->name('employee-dashboard');
+Route::get('/tasks', TaskDashboard::class)->name('tasks-dashboard');
+
+Route::get('/data/employees', Employee::class)->name('employees-data');
+Route::get('/data/tasks', Task::class)->name('tasks-data');
+
+
 
 // Authentication
 Route::get('/sign-in', SignIn::class)->name('login')->middleware('guest');
@@ -30,7 +32,7 @@ Route::post('/sign-out', function (Request $request) {
     $request->session()->invalidate();
     $request->session()->regenerateToken();
     return redirect('/');
-});
+})->name('logout');
 
 Route::get('/profile', Profile::class)->middleware('auth')->name('profile');
 Route::get('/dashboard', DashboardHome::class)
