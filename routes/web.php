@@ -9,21 +9,30 @@ use App\Livewire\Pages\Dashboard\Posts\Index as DashboardPost;
 use App\Livewire\Pages\Dashboard\Posts\Show as ShowPost;
 use App\Livewire\Pages\Dashboard\Profile;
 use App\Livewire\Pages\Dashboard\TaskDashboard;
+use App\Livewire\Pages\Data\CreateEmployee;
+use App\Livewire\Pages\Data\EditEmployee;
 use App\Livewire\Pages\Data\Employee;
 use App\Livewire\Pages\Data\Task;
 use App\Livewire\Pages\SignIn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', EmployeeDashboard::class)->name('employee-dashboard');
+Route::middleware('auth')->group(function () {
+    Route::get('/', EmployeeDashboard::class)->name('employee-dashboard');
+});
+
 Route::get('/tasks', TaskDashboard::class)->name('tasks-dashboard');
 
-Route::get('/data/employees', Employee::class)->name('employees-data');
+Route::get('/data/employees', Employee::class)->middleware('role:admin,supervisor')->name('employees-data');
+Route::middleware('role:admin')->group(function () {
+    Route::get('/data/employees/create', CreateEmployee::class)->name('employee-create');
+    Route::get('/data/employees/{employee_id}/edit', EditEmployee::class)->name('employee-edit');
+});
+
+
+
 Route::get('/data/tasks', Task::class)->name('tasks-data');
-
-
 
 // Authentication
 Route::get('/sign-in', SignIn::class)->name('login')->middleware('guest');

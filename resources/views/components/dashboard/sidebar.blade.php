@@ -8,15 +8,15 @@
     x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full">
 
     <div
-        class="overflow-y-auto px-3 h-full flex flex-col bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700 space-y-4">
+        class="overflow-y-auto px-3 h-full flex flex-col bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700 space-y-2">
 
         {{-- Logo & Brand --}}
         <div
-            class="py-5 px-2 flex items-center border-b border-gray-200 dark:border-gray-700 justify-start sm:justify-center">
+            class="p-2 pt-4 flex items-center border-b border-gray-200 dark:border-gray-700 justify-start sm:justify-center">
 
             <a href="/" wire:naviigate>
                 <img src="{{ asset('img/logo.png') }}" alt="PT Properindo Enviro Tech"
-                    class="h-16 object-contain -my-2">
+                    class="h-24 object-contain -my-2">
             </a>
 
             {{-- Mobile Close Button --}}
@@ -35,7 +35,7 @@
                 Dashboard
             </h5>
 
-            <ul class="nav-list space-y-2">
+            <ul class="nav-list space-y-1">
 
                 {{-- Dashboard Karyawan --}}
                 @can('supervisor')
@@ -43,7 +43,7 @@
                     <x-dashboard.link href="/" routeActive="/">
 
                         <x-slot:icon>
-                            <x-icons.users size="28" />
+                            <x-icons.users size="26" />
                         </x-slot:icon>
 
                         Employee
@@ -57,7 +57,7 @@
                     <x-dashboard.link href="/tasks" routeActive="tasks*">
 
                         <x-slot:icon>
-                            <x-icons.task size="28" />
+                            <x-icons.task size="26" />
                         </x-slot:icon>
 
                         Task
@@ -76,7 +76,7 @@
                 Data
             </h5>
 
-            <ul class="nav-list space-y-2">
+            <ul class="nav-list space-y-1">
 
                 {{-- Data Karyawan --}}
                 @can('supervisor')
@@ -84,7 +84,7 @@
                     <x-dashboard.link href="/data/employees" routeActive="data/employees*">
 
                         <x-slot:icon>
-                            <x-icons.users size="28" />
+                            <x-icons.users size="26" />
                         </x-slot:icon>
 
                         Employee
@@ -98,7 +98,7 @@
                     <x-dashboard.link href="/data/tasks" routeActive="data/tasks*">
 
                         <x-slot:icon>
-                            <x-icons.task size="28" />
+                            <x-icons.task size="26" />
                         </x-slot:icon>
 
                         Task
@@ -112,14 +112,14 @@
         {{-- User --}}
         <div class="pb-4">
 
-            <ul class="nav-list space-y-2">
+            <ul class="nav-list space-y-1">
 
                 {{-- Notifications --}}
                 <li>
                     <x-dashboard.link href="/dashboard/notifications" routeActive="dashboard/notifications*">
 
                         <x-slot:icon>
-                            <x-icons.notification size="28" />
+                            <x-icons.notification size="26" />
                         </x-slot:icon>
 
                         <div class="flex items-center justify-between w-full">
@@ -144,7 +144,7 @@
                     <x-dashboard.link href="/dashboard/profile" routeActive="dashboard/profile*">
 
                         <x-slot:icon>
-                            <x-icons.user size="28" />
+                            <x-icons.user size="26" />
                         </x-slot:icon>
 
                         Profile

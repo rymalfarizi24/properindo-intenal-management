@@ -40,7 +40,7 @@ class Profile extends Component
         return view('livewire.pages.dashboard.profile');
     }
 
-    public function save()
+    public function changeProfile()
     {
         $rules = [
             'name' => ['required', 'max:255'],
@@ -62,6 +62,37 @@ class Profile extends Component
 
         User::where('id', $this->user_id)->update($validated_data);
         $this->dispatch('toast', type: 'success', message: 'Profile updated successfully!');
+    }
+
+    public function changePhoto()
+    {
+        $this->validate([
+            'img' => ['required', 'image', 'max:1024']
+        ]);
+
+        if ($this->lastImg && SupabaseStorage::disk('profile-image')->exists($this->lastImg)) {
+            SupabaseStorage::disk('profile-image')->delete(
+                $this->lastImg
+            );
+        }
+        $path = SupabaseStorage::disk('profile-image')->putFile($this->user_id, $this->img, 'public');
+
+        User::where('id', $this->user_id)->update(['img' => $path]);
+
+        $this->dispatch('toast', type: 'success', message: 'Profile photo updated successfully!');
+    }
+
+    public function changePassword()
+    {
+        $this->validate([
+            'last_password' => ['required', 'current_password'],
+            'new_password' => ['required', 'min:8'],
+            'confirm_password' => ['required', 'same:new_password'],
+        ]);
+
+        User::where('id', $this->user_id)->update(['password' => bcrypt($this->new_password)]);
+
+        $this->dispatch('toast', type: 'success', message: 'Password updated successfully!');
     }
 
     private function updateProfile()
