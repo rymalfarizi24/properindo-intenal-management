@@ -29,7 +29,7 @@ class SignIn extends Component
 
     public function render()
     {
-        return view('livewire.pages.sign-in')->layoutData(['isSignInPage' => true]);
+        return view('livewire.pages.sign-in');
     }
 
     public function authenticate()

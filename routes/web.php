@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Middleware\IsAdmin;
 use App\Livewire\Pages\About;
 use App\Livewire\Pages\Blog;
 use App\Livewire\Pages\Blogs;
@@ -14,7 +13,6 @@ use App\Livewire\Pages\Dashboard\Posts\Show as ShowPost;
 use App\Livewire\Pages\Dashboard\Profile;
 use App\Livewire\Pages\Home;
 use App\Livewire\Pages\SignIn;
-use App\Livewire\Pages\SignUp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -44,8 +42,8 @@ Route::get('/dashboard/posts/create', CreatePost::class)->middleware('auth')->na
 Route::get('/dashboard/posts/{post:slug}/edit', EditPost::class)->middleware('auth')->name('post-edit');
 Route::get('/dashboard/posts/{post:slug}', ShowPost::class)->middleware('auth')->name('post-show');
 
-Route::get('/dashboard/categories', DashboardCategory::class)->middleware(IsAdmin::class)->name('categories-dashboard');
+Route::get('/dashboard/categories', DashboardCategory::class)->middleware('role:admin')->name('categories-dashboard');
 Route::get('/admin/dashboard', DashboardHome::class)
     ->defaults('scope', 'global')
-    ->middleware(IsAdmin::class)
+    ->middleware('role:admin')
     ->name('admin.dashboard');
