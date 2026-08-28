@@ -1,5 +1,5 @@
 <div>
-    <x-title>My Posts</x-title>
+    <x-title>Our Employees</x-title>
 
     {{-- Search --}}
     <div class="flex flex-col gap-6 sm:flex-row sm:justify-between mb-3 sm:mb-8">
@@ -9,14 +9,14 @@
         </div>
 
         <div class="basis-1/3 flex justify-end">
-            <x-ui.button tag="a" wire:navigate href="/dashboard/posts/create" class="">
-                <x-icons.post-add size="24" />
-                New Post
+            <x-ui.button tag="a" wire:navigate href="/data/employees/create" class="">
+                <x-icons.user-add size="26" />
+                New Employee
             </x-ui.button>
         </div>
-        {{-- Create New Post --}}
+        {{-- Create New Employee --}}
     </div>
 
-    {{-- Posts Table --}}
+    {{-- Employees Table --}}
     <livewire:components.employees-table />
 </div>

@@ -1,4 +1,11 @@
-@props(['name' => 'password', 'placeholder' => 'Your password', 'label' => 'Password', 'class' => ''])
+@props(['name' => 'password', 'placeholder' => 'Your password', 'label' => 'Password', 'class' => '', 'bg' => 'white'])
+
+@php
+$color = [
+'white' => 'bg-white',
+'neutral' => 'bg-neutral-secondary-medium',
+]
+@endphp
 
 <div class="{{ $class }}">
     <x-form.label :name="$name">{{ $label }}</x-form.label>
@@ -11,9 +18,8 @@
                 class="w-5 transition z-5 border border-dark h-0 -rotate-45 absolute top-1/2 -translate-y-1/2 right-4">
             <x-icons.eye size="20" class="text-gray-400 absolute top-1/2 -translate-y-1/2 right-4" />
         </div>
-        <input wire:model="{{ $name }}" :type="show ? 'text' : 'password'" name="{{ $name }}"
-            id="{{ $name }}" autocomplete="{{ $name }}"
-            class=" 
+        <input {{ $attributes }} wire:model="{{ $name }}" :type="show ? 'text' : 'password'" name="{{ $name }}"
+            id="{{ $name }}" autocomplete="{{ $name }}" class="{{ $color[$bg] }} 
                 block w-full rounded-lg px-4 py-3 text-sm text-gray-900
                 bg-white border transition
                 placeholder:text-gray-400
@@ -23,8 +29,7 @@
                 @else
                     border-gray-300
                 @enderror
-                "
-            :placeholder="show ? @js($placeholder) : '••••••••'">
+                " :placeholder="show ? @js($placeholder) : '••••••••'">
     </div>
 
     <x-form.error-validation :name="$name" />

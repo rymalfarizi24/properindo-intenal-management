@@ -24,7 +24,7 @@ class EmployeesTable extends Component
     public function render()
     {
         return view('livewire.components.employees-table', [
-            'employees' => Employee::paginate(5)
+            'employees' => Employee::latest()->paginate(5)
         ]);
     }
 
