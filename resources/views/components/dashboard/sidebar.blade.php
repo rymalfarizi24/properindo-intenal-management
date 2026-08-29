@@ -117,31 +117,29 @@
                 {{-- Notifications --}}
                 <li>
                     <x-dashboard.link href="/dashboard/notifications" routeActive="dashboard/notifications*">
-
                         <x-slot:icon>
                             <x-icons.notification size="26" />
                         </x-slot:icon>
-
-                        <div class="flex items-center justify-between w-full">
-                            <span>Notifications</span>
-
-                            {{-- Notification Badge --}}
-                            @if ($unreadNotifications ?? 0 > 0)
-                            <span class="inline-flex items-center justify-center
-                                           min-w-5 h-5 px-1 text-xs font-medium
-                                           text-white bg-red-500 rounded-full">
-                                {{ $unreadNotifications }}
-                            </span>
-                            @endif
-                        </div>
-
+                        Notifications
                     </x-dashboard.link>
                 </li>
+
+                {{-- Activity Log --}}
+                @can('admin')
+                <li>
+                    <x-dashboard.link href="/activity-log" routeActive="activity-log*">
+                        <x-slot:icon>
+                            <x-icons.history size="26" />
+                        </x-slot:icon>
+                        Activity Log
+                    </x-dashboard.link>
+                </li>
+                @endcan
 
 
                 {{-- Profile --}}
                 <li>
-                    <x-dashboard.link href="/dashboard/profile" routeActive="dashboard/profile*">
+                    <x-dashboard.link href="/profile" routeActive="profile*">
 
                         <x-slot:icon>
                             <x-icons.user size="26" />
