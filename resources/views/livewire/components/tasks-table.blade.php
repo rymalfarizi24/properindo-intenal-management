@@ -74,12 +74,13 @@
 
             <thead class="text-sm text-body bg-neutral-secondary-medium border-b border-default-medium">
                 <tr>
-                    <th scope="col" class="px-6 py-3 font-medium">#</th>
-                    <th scope="col" class="px-6 py-3 font-medium">Task</th>
-                    <th scope="col" class="px-6 py-3 font-medium">PIC</th>
+                    <th scope="col" class="px-6 py-3 font-medium text-center">#</th>
+                    <th scope="col" class="px-6 py-3 font-medium text-center">Task</th>
+                    <th scope="col" class="px-6 py-3 font-medium text-center">PIC</th>
                     <th scope="col" class="px-6 py-3 font-medium text-center">Status</th>
                     <th scope="col" class="px-6 py-3 font-medium text-center">Deadline</th>
                     <th scope="col" class="px-6 py-3 font-medium text-center">Priority</th>
+                    <th scope="col" class="px-6 py-3 font-medium text-center">Actions</th>
                 </tr>
             </thead>
 
@@ -111,17 +112,15 @@
                         {{ ucfirst($task->priority) }}
                     </td>
 
+                    <td class="px-6 py-4 text-center">
+                        <x-dropdown-modal :data="$task" />
+                    </td>
+
                 </tr>
                 @empty
-                <x-ui.empty.empty-table colspan="6" :search="$search">
+                <x-ui.empty.empty-table colspan="7" :search="$search">
                     <p class="text-sm text-body">
-                        Tidak ditemukan task
-                        @if ($search)
-                        dengan kata kunci
-                        <span class="font-medium text-heading">
-                            "{{ $search }}"
-                        </span>
-                        @endif
+                        Tidak ditemukan task dengan kata kunci dan filter yang sesuai. Coba kata kunci lain.
                     </p>
                 </x-ui.empty.empty-table>
                 @endforelse

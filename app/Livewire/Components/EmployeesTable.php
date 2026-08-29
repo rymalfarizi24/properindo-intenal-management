@@ -38,8 +38,6 @@ class EmployeesTable extends Component
             ->latest()
             ->paginate(5);
 
-        $this->resetPage();
-
         return view('livewire.components.employees-table', compact('employees'));
     }
 

@@ -13,10 +13,10 @@
         <div class="basis-2/3 shrink-0">
             <livewire:components.default-search wire:model='search' />
         </div>
+
         {{-- Add Category --}}
         <div class="basis-1/3 flex justify-end">
-            <x-ui.button wire:click='resetErrorInput'
-                x-on:click="
+            <x-ui.button wire:click='resetErrorInput' x-on:click="
                     isOpenModal=true;
                     id=null;
                     name=''; 

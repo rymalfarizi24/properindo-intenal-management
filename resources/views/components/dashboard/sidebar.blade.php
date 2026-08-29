@@ -20,7 +20,7 @@
             </a>
 
             {{-- Mobile Close Button --}}
-            <div class="ml-auto sm:hidden">
+            <div class="ml-auto md:hidden">
                 <x-dashboard.side-button />
             </div>
 

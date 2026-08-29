@@ -56,8 +56,8 @@ class Employee extends Authenticatable
     public function scopeFilter(Builder $query, array $filters): void
     {
         $query->when($filters['search'] ?? false, function ($query, $search) {
-            $query->where('name', 'like', "%$search%")
-                ->orWhere('email', 'like', "%$search%");
+            $query->where('name', 'ilike', "%$search%")
+                ->orWhere('email', 'ilike', "%$search%");
         });
 
         $query->when($filters['department'] ?? false, function ($query, $department) {

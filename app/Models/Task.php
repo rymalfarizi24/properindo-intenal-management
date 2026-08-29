@@ -26,7 +26,7 @@ class Task extends Model
     public function scopeFilter(Builder $query, array $filters): void
     {
         $query->when($filters['search'] ?? false, function ($query, $search) {
-            $query->where('title', 'like', "%$search%");
+            $query->where('title', 'ilike', "%$search%");
         });
 
         $query->when($filters['employee'] ?? false, function ($query, $employee) {

@@ -4,6 +4,7 @@ namespace App\Livewire\Components;
 
 use App\Models\Employee;
 use App\Models\Task;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -31,9 +32,9 @@ class TasksTable extends Component
         $this->employees = Employee::select('id', 'name')->get()->toArray();
     }
 
+    #[On('toast')]
     public function render()
     {
-        $this->resetPage();
         $filters = [
             'search' => $this->search,
             'employee' => $this->employee,
@@ -45,9 +46,7 @@ class TasksTable extends Component
 
         return view(
             'livewire.components.tasks-table',
-            [
-                'tasks' => $tasks,
-            ]
+            compact('tasks')
         );
     }
 
@@ -69,29 +68,9 @@ class TasksTable extends Component
     }
 
 
-    // public function destroy($id)
-    // {
-    //     $employee = Employee::find($id);
-    //     $changed_by = auth()->user()->id;
-
-    //     if ($changed_by === $id) {
-    //         return $this->dispatch('toast', type: 'error', message: 'You cannot delete your own account');
-    //     }
-
-    //     if (!$employee) {
-    //         return $this->dispatch('toast', type: 'error', message: 'Employee not found');
-    //     }
-
-    //     if ($employee->img) {
-    //         $response = SupabaseStorage::disk('avatar')->delete($employee->img);
-
-    //         if (!$response) {
-    //             return $this->dispatch('toast', type: 'error', message: 'Employee not found');
-    //         }
-    //     }
-
-    //     Employee::destroy($id);
-
-    //     $this->dispatch('toast', type: 'success', message: 'Employee has been deleted succesfully');
-    // }
+    public function destroy($id)
+    {
+        Task::destroy($id);
+        $this->dispatch('toast', type: 'success', message: 'Task has been deleted succesfully');
+    }
 }
