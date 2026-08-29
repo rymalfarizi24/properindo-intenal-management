@@ -11,17 +11,17 @@
     <div class="flex flex-col gap-6 sm:flex-row sm:justify-between items-center sm:mb-4">
         <x-title>Our Tasks</x-title>
 
-        {{-- Add Category --}}
-        <div class="flex justify-end">
-            <x-ui.button x-on:click="isOpenModal=true;">
-                <x-icons.task-add size="26" />
-                New Task
-            </x-ui.button>
-        </div>
+        {{-- Add New Task --}}
+        @can('admin')
+        <x-ui.button x-on:click="isOpenModal=true;">
+            <x-icons.task-add size="26" />
+            New Task
+        </x-ui.button>
+        @endcan
     </div>
 
     {{-- Tasks Table --}}
-    <livewire:components.tasks-table lazy />
+    <livewire:components.tasks-table lazy :employees="$employees" />
 
     {{-- Modal --}}
     <div x-show="isOpenModal" x-cloak x-on:toast.window="isOpenModal=false">

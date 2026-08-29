@@ -9,6 +9,7 @@
         </div>
 
         {{-- PIC / Employee --}}
+        @can('supervisor')
         <div>
             <select wire:model.live="employee"
                 class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
@@ -21,6 +22,7 @@
                 @endforeach
             </select>
         </div>
+        @endcan
 
         {{-- Status --}}
         <div>
@@ -74,11 +76,13 @@
 
             <thead class="text-sm text-body bg-neutral-secondary-medium border-b border-default-medium">
                 <tr>
-                    <th scope="col" class="px-6 py-3 font-medium text-center">#</th>
-                    <th scope="col" class="px-6 py-3 font-medium text-center">Task</th>
-                    <th scope="col" class="px-6 py-3 font-medium text-center">PIC</th>
+                    <th scope="col" class="px-6 py-3 font-medium">#</th>
+                    <th scope="col" class="px-6 py-3 font-medium">Task</th>
+                    @can('supervisor')
+                    <th scope="col" class="px-6 py-3 font-medium">PIC</th>
+                    @endcan
                     <th scope="col" class="px-6 py-3 font-medium text-center">Status</th>
-                    <th scope="col" class="px-6 py-3 font-medium text-center">Deadline</th>
+                    <th scope="col" class="px-6 py-3 font-medium">Deadline</th>
                     <th scope="col" class="px-6 py-3 font-medium text-center">Priority</th>
                     <th scope="col" class="px-6 py-3 font-medium text-center">Actions</th>
                 </tr>
@@ -96,15 +100,18 @@
                         {{ $task->title }}
                     </th>
 
+                    @can('supervisor')
                     <td class="px-6 py-4">
                         {{ $task->employee->name }}
                     </td>
+                    @endcan
+
 
                     <td class="px-6 py-4 text-center">
                         {{ ucfirst($task->status) }}
                     </td>
 
-                    <td class="px-6 py-4 text-center">
+                    <td class="px-6 py-4">
                         {{ $task->deadline->diffForHumans() }}
                     </td>
 

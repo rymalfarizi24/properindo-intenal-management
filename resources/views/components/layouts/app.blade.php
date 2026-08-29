@@ -17,7 +17,8 @@
 </head>
 
 <body class="min-h-screen flex flex-col" x-data="{ sidebarOpen: !window.matchMedia('(max-width: 639px)').matches }">
-    <x-dashboard.header />
+    {{--
+    <x-dashboard.header /> --}}
     <x-dashboard.sidebar />
     <main class="bg-gray-100 p-4 flex-1 sm:px-6 lg:px-8" :class="{ 'sm:ml-64 ml-0': sidebarOpen }">
         {{ $slot }}

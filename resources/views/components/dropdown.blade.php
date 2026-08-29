@@ -8,7 +8,7 @@
 
     <!-- Dropdown -->
     <div x-show="isDropdown" x-cloak x-transition
-        class="absolute z-20 mt-2 w-36 rounded-lg bg-white dark:bg-gray-800 overflow-hidden shadow-lg border border-gray-200">
+        class="absolute z-50 mt-2 w-36 rounded-lg bg-white dark:bg-gray-800 overflow-hidden shadow-lg border border-gray-200">
 
         <!-- Edit -->
         <a wire:navigate href="{{ $href . '/' . $id }}/edit" class="flex items-center gap-2 px-4 py-2 text-sm 

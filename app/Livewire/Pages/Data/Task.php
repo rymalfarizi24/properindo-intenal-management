@@ -4,6 +4,7 @@ namespace App\Livewire\Pages\Data;
 
 use App\Models\Employee;
 use App\Models\Task as ModelsTask;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 
 class Task extends Component
@@ -17,9 +18,9 @@ class Task extends Component
 
     public array $employees = [];
 
-    public function mount()
+    public function mount(?array $employees = null)
     {
-        $this->employees = Employee::select('id', 'name')->get()->pluck('name', 'id')->toArray();
+        $this->employees = $employees ?? [];
     }
 
     public function render()

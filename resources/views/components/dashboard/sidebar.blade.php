@@ -40,7 +40,7 @@
                 {{-- Dashboard Karyawan --}}
                 @can('supervisor')
                 <li>
-                    <x-dashboard.link href="/" routeActive="/">
+                    <x-dashboard.link href="/employees" routeActive="employees">
 
                         <x-slot:icon>
                             <x-icons.users size="26" />
@@ -54,7 +54,7 @@
 
                 {{-- Dashboard Pekerjaan --}}
                 <li>
-                    <x-dashboard.link href="/tasks" routeActive="tasks*">
+                    <x-dashboard.link href="/" routeActive="/">
 
                         <x-slot:icon>
                             <x-icons.task size="26" />

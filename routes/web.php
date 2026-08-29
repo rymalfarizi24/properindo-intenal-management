@@ -19,7 +19,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', EmployeeDashboard::class)->name('employee-dashboard');
+    Route::get('/', TaskDashboard::class)->name('tasks-dashboard');
+    Route::get('/employees', EmployeeDashboard::class)->name('employee-dashboard');
 });
 
 Route::get('/tasks', TaskDashboard::class)->name('tasks-dashboard');
@@ -29,8 +30,6 @@ Route::middleware('role:admin')->group(function () {
     Route::get('/data/employees/create', CreateEmployee::class)->name('employee-create');
     Route::get('/data/employees/{employee_id}/edit', EditEmployee::class)->name('employee-edit');
 });
-
-
 
 Route::get('/data/tasks', Task::class)->name('tasks-data');
 
@@ -48,13 +47,13 @@ Route::get('/dashboard', DashboardHome::class)
     ->defaults('scope', 'user')
     ->middleware('auth');
 
-Route::get('/dashboard/posts', DashboardPost::class)->middleware('auth')->name('posts-dashboard');
-Route::get('/dashboard/posts/create', CreatePost::class)->middleware('auth')->name('post-create');
-Route::get('/dashboard/posts/{post:slug}/edit', EditPost::class)->middleware('auth')->name('post-edit');
-Route::get('/dashboard/posts/{post:slug}', ShowPost::class)->middleware('auth')->name('post-show');
+// Route::get('/dashboard/posts', DashboardPost::class)->middleware('auth')->name('posts-dashboard');
+// Route::get('/dashboard/posts/create', CreatePost::class)->middleware('auth')->name('post-create');
+// Route::get('/dashboard/posts/{post:slug}/edit', EditPost::class)->middleware('auth')->name('post-edit');
+// Route::get('/dashboard/posts/{post:slug}', ShowPost::class)->middleware('auth')->name('post-show');
 
-Route::get('/dashboard/categories', DashboardCategory::class)->middleware('role:admin')->name('categories-dashboard');
-Route::get('/admin/dashboard', DashboardHome::class)
-    ->defaults('scope', 'global')
-    ->middleware('role:admin')
-    ->name('admin.dashboard');
+// Route::get('/dashboard/categories', DashboardCategory::class)->middleware('role:admin')->name('categories-dashboard');
+// Route::get('/admin/dashboard', DashboardHome::class)
+//     ->defaults('scope', 'global')
+//     ->middleware('role:admin')
+//     ->name('admin.dashboard');

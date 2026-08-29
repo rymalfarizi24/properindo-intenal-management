@@ -4,6 +4,7 @@ namespace App\Livewire\Components;
 
 use App\Models\Employee;
 use App\Models\Task;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -29,10 +30,11 @@ class TasksTable extends Component
 
     public function mount()
     {
-        $this->employees = Employee::select('id', 'name')->get()->toArray();
+        if (Gate::allows('supervisor')) {
+            $this->employees = Employee::select('id', 'name')->get()->toArray();
+        }
     }
 
-    #[On('toast')]
     public function render()
     {
         $filters = [
@@ -42,7 +44,13 @@ class TasksTable extends Component
             'priority' => $this->priority,
             'deadline' => $this->deadline,
         ];
-        $tasks = Task::filter($filters)->with('employee:id,name')->orderBy('deadline', 'asc')->paginate(5);
+        $tasks = Task::filter($filters)->with('employee:id,name');
+
+        if (Gate::denies('supervisor')) {
+            $tasks = $tasks->where('employee_id', auth()->user()->id);
+        }
+
+        $tasks = $tasks->orderBy('deadline', 'asc')->paginate(5);
 
         return view(
             'livewire.components.tasks-table',
