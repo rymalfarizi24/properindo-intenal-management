@@ -119,8 +119,28 @@
                         {{ ucfirst($task->priority) }}
                     </td>
 
-                    <td class="px-6 py-4 text-center">
+                    <td class="px-6 py-4 text-center flex justify-center">
+                        {{-- Actions --}}
+                        @can('admin')
                         <x-dropdown-modal :data="$task" />
+                        @else
+                        <!-- Edit -->
+                        <button
+                            class="cursor-pointer rounded-md flex justify-center items-center gap-2 px-4 py-2 text-sm text-blue-600 hover:bg-blue-100 transition"
+                            x-on:click="
+                                        $dispatch('reset-error');
+                                        isOpenModal=true;
+                                        id=@js($task->id);
+                                        title=@js($task->title); 
+                                        employee_id=@js($task->employee_id);
+                                        status=@js($task->status);
+                                        priority=@js($task->priority);
+                                        deadline=@js($task->deadline);
+                                        ">
+                            <x-icons.pen size='20' />
+                            Edit
+                        </button>
+                        @endcan
                     </td>
 
                 </tr>

@@ -13,7 +13,15 @@
 
         {{-- Add New Task --}}
         @can('admin')
-        <x-ui.button x-on:click="isOpenModal=true;">
+        <x-ui.button x-on:click="
+            isOpenModal=true;
+            id='';
+            title='';
+            employee_id='';
+            status='';
+            priority='';
+            deadline='';
+        ">
             <x-icons.task-add size="26" />
             New Task
         </x-ui.button>

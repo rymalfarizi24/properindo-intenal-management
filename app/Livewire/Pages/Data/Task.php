@@ -5,6 +5,7 @@ namespace App\Livewire\Pages\Data;
 use App\Models\Employee;
 use App\Models\Task as ModelsTask;
 use Illuminate\Support\Facades\Gate;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Task extends Component
@@ -42,13 +43,13 @@ class Task extends Component
 
         $validatedData = $this->validate($rules);
         if ($this->id) {
-            $validatedData['id'] = $this->id;
+            ModelsTask::where('id', $this->id)->update($validatedData);
             $message = 'Task has been updated';
         } else {
+            ModelsTask::create($validatedData);
             $message = 'New task has been added!';
         }
-        // Reset Input
-        ModelsTask::updateOrCreate($validatedData);
+
         $this->dispatch('toast', type: 'success', message: $message);
     }
 }

@@ -2,10 +2,8 @@
 
 namespace App\Livewire\Components;
 
-use App\Models\Employee;
 use App\Models\Task;
 use Illuminate\Support\Facades\Gate;
-use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
