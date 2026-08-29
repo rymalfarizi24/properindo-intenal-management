@@ -1,15 +1,15 @@
 <div>
     {{-- Search & Filter --}}
-    <div class="flex flex-col gap-3 sm:flex-row mb-6">
+    <div class="grid grid-cols-10 gap-3 mb-6">
 
         {{-- Search --}}
-        <div class="flex-1">
+        <div class="col-span-4">
             <input type="text" wire:model.live.debounce.300ms="search" placeholder="Search employee..."
                 class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
         </div>
 
         {{-- Department --}}
-        <div class="sm:w-48">
+        <div class="col-span-2">
             <select wire:model.live="department"
                 class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                 <option value="">All Departments</option>
@@ -23,7 +23,7 @@
         </div>
 
         {{-- Role --}}
-        <div class="sm:w-48">
+        <div class="col-span-2">
             <select wire:model.live="role"
                 class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                 <option value="">All Roles</option>
@@ -34,7 +34,7 @@
         </div>
 
         {{-- Status --}}
-        <div class="sm:w-48">
+        <div class="col-span-2">
             <select wire:model.live="status"
                 class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                 <option value="">All Status</option>
@@ -44,10 +44,18 @@
         </div>
 
         {{-- Reset --}}
-        <div class="flex items-end">
+        <div class="col-span-5">
             <button type="button" wire:click="resetFilters"
-                class="px-4 py-2.5 cursor-pointer text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-lg hover:bg-gray-200 focus:ring-4 focus:ring-gray-200">
+                class="w-full px-4 py-2.5 cursor-pointer text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-lg hover:bg-gray-200 focus:ring-4 focus:ring-gray-200">
                 Reset
+            </button>
+        </div>
+
+        {{-- Export to Excel --}}
+        <div class="col-span-5">
+            <button type="button" wire:click="exportExcel"
+                class="w-full px-4 py-2.5 cursor-pointer text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-lg hover:bg-gray-200 focus:ring-4 focus:ring-gray-200">
+                Export to Excel
             </button>
         </div>
 

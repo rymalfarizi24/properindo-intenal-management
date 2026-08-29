@@ -2,12 +2,14 @@
 
 namespace App\Livewire\Components;
 
+use App\Exports\EmployeeExport;
 use App\Models\ActivityLog;
 use App\Models\Employee;
 use App\Support\SupabaseStorage;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 class EmployeesTable extends Component
 {
@@ -32,12 +34,7 @@ class EmployeesTable extends Component
 
     public function render()
     {
-        $employees = Employee::filter([
-            'search' => $this->search,
-            'department' => $this->department,
-            'role' => $this->role,
-            'status' => $this->status,
-        ])
+        $employees = Employee::filter($this->getFilters())
             ->latest()
             ->paginate(5);
 
@@ -49,6 +46,14 @@ class EmployeesTable extends Component
     public function placeholder()
     {
         return view('components.placeholder.employees-table');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(
+            new EmployeeExport($this->getFilters()),
+            "employees_" . now()->format('Y-m-d_H:i:s') . ".xlsx"
+        );
     }
 
     public function resetFilters()
@@ -89,5 +94,15 @@ class EmployeesTable extends Component
 
 
         $this->dispatch('toast', type: 'success', message: 'Employee has been deleted succesfully');
+    }
+
+    private function getFilters(): array
+    {
+        return [
+            'search' => $this->search,
+            'department' => $this->department,
+            'role' => $this->role,
+            'status' => $this->status,
+        ];
     }
 }
