@@ -4,7 +4,7 @@
         {{-- Logo --}}
         <div class="flex items-center pl-5">
             <x-dashboard.side-button />
-            <div class="font-semibold text-xl ml-4">PROSPERINDO Internall App</div>
+            {{-- <div class="font-semibold text-xl ml-4">PROSPERINDO Internall App</div> --}}
         </div>
     </div>
 </nav>

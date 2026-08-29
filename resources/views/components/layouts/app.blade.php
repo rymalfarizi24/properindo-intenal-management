@@ -26,7 +26,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     @livewireScripts
-    @livewireChartsScripts
     <script src="{{ asset('js/slugify.js') }}"></script>
     <x-toaster />
 </body>
