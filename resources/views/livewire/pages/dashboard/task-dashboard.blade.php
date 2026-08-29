@@ -44,7 +44,7 @@
         {{-- Completed --}}
         <x-ui.card-stat title="Selesai" :value="$completedTasks" description="Pekerjaan telah selesai">
             <x-slot:icon>
-                <x-icons.check size="24" />
+                <x-icons.task-check size="24" />
             </x-slot:icon>
         </x-ui.card-stat>
 

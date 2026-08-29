@@ -2,9 +2,9 @@
     {{-- Ketika layar medium --}}
     <div class="flex items-center justify-between pr-5 py-4">
         {{-- Logo --}}
-        <div class="flex items-center px-5 w-64">
+        <div class="flex items-center pl-5">
             <x-dashboard.side-button />
-            <div class="font-bold text-2xl ml-4">Artikula</div>
+            <div class="font-semibold text-xl ml-4">PROSPERINDO Internall App</div>
         </div>
 
         <x-header.sign-out-button />

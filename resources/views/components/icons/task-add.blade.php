@@ -1,6 +1,7 @@
 @props(['size', 'class' => ''])
 
-<svg {{ $class }} xmlns="http://www.w3.org/2000/svg" width="{{ $size }}" height="{{ $size }}" viewBox="0 0 32 32">
+<svg class="{{ $class }}" xmlns="http://www.w3.org/2000/svg" width="{{ $size }}" height="{{ $size }}"
+    viewBox="0 0 32 32">
     <path d="M0 0h32v32H0z" fill="none" />
     <path fill="currentColor" d="M31 24h-4v-4h-2v4h-4v2h4v4h2v-4h4z" />
     <path fill="currentColor"
