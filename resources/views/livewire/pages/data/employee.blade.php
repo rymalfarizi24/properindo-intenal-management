@@ -13,5 +13,5 @@
     </div>
 
     {{-- Employees Table --}}
-    <livewire:components.employees-table />
+    <livewire:components.employees-table lazy />
 </div>
