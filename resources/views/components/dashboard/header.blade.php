@@ -6,7 +6,5 @@
             <x-dashboard.side-button />
             <div class="font-semibold text-xl ml-4">PROSPERINDO Internall App</div>
         </div>
-
-        <x-header.sign-out-button />
     </div>
 </nav>
