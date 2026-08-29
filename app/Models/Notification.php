@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use \Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Notification extends Model
 {
+    const UPDATED_AT = null;
     /**
      * The attributes that are mass assignable.
      *
@@ -16,4 +18,13 @@ class Notification extends Model
         'created_at',
         'updated_at',
     ];
+
+    protected $casts = [
+        'created_at' => 'datetime',
+    ];
+
+    public function task(): BelongsTo
+    {
+        return $this->belongsTo(Task::class);
+    }
 }

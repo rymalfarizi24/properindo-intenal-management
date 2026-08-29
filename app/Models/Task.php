@@ -55,8 +55,6 @@ class Task extends Model
                 ]);
             }
         });
-
-        // dump($query->toSql());
     }
 
     public function employee(): BelongsTo

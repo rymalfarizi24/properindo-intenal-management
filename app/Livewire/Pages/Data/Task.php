@@ -5,7 +5,6 @@ namespace App\Livewire\Pages\Data;
 use App\Models\Employee;
 use App\Models\Task as ModelsTask;
 use Illuminate\Support\Facades\Gate;
-use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Task extends Component
