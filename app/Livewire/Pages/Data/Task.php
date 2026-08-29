@@ -18,9 +18,11 @@ class Task extends Component
 
     public array $employees = [];
 
-    public function mount(?array $employees = null)
+    public function mount()
     {
-        $this->employees = $employees ?? [];
+        if (Gate::allows('supervisor')) {
+            $this->employees = Employee::select('id', 'name')->pluck('name', 'id')->toArray();
+        }
     }
 
     public function render()

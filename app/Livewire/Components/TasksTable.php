@@ -28,11 +28,9 @@ class TasksTable extends Component
     public array $employees = [];
 
 
-    public function mount()
+    public function mount(?array $employees = null)
     {
-        if (Gate::allows('supervisor')) {
-            $this->employees = Employee::select('id', 'name')->get()->toArray();
-        }
+        $this->employees = $employees ?? [];
     }
 
     public function render()
