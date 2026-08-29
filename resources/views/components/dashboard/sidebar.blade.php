@@ -116,7 +116,7 @@
 
                 {{-- Notifications --}}
                 <li>
-                    <x-dashboard.link href="/dashboard/notifications" routeActive="dashboard/notifications*">
+                    <x-dashboard.link href="/notification" routeActive="notification*">
                         <x-slot:icon>
                             <x-icons.notification size="26" />
                         </x-slot:icon>

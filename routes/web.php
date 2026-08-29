@@ -15,6 +15,7 @@ use App\Livewire\Pages\Data\CreateEmployee;
 use App\Livewire\Pages\Data\EditEmployee;
 use App\Livewire\Pages\Data\Employee;
 use App\Livewire\Pages\Data\Task;
+use App\Livewire\Pages\Notification;
 use App\Livewire\Pages\SignIn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->group(function () {
     Route::get('/', TaskDashboard::class)->name('tasks-dashboard');
     Route::get('/employees', EmployeeDashboard::class)->name('employee-dashboard');
+    Route::get('/notification', Notification::class)->name('notification');
 });
 
 Route::get('/tasks', TaskDashboard::class)->name('tasks-dashboard');
