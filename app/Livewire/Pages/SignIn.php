@@ -9,7 +9,7 @@ use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 
 #[Layout('components.layouts.auth')]
-#[Title('Sign In — Prosperindo Internal App')]
+#[Title('Sign In — Properindo Internal App')]
 
 class SignIn extends Component
 {

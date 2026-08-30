@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap"
         rel="stylesheet" />
-    <title>{{ $title ?? 'PROSPERINDO Internall App' }}</title>
+    <title>{{ $title ?? 'Properindo Internall App' }}</title>
 </head>
 
 <body class="h-full bg-gray-100">
@@ -20,7 +20,7 @@
         {{-- Form --}}
         <section class="w-full md:w-1/2 flex flex-col justify-center px-6 py-10 lg:px-8">
             <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-                <img src="{{ asset('img/logo.png') }}" alt="PT Prosperindo Enviro Tech"
+                <img src="{{ asset('img/logo.png') }}" alt="PT Properindo Enviro Tech"
                     class="mx-auto w-80 grayscale-50">
                 <h2 class="text-center text-2xl/9 font-bold tracking-tight text-gray-900">
                     Sign in to your account
