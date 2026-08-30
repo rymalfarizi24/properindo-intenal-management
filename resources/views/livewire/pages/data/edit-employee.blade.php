@@ -4,10 +4,10 @@
         {{-- Profile Sidebar --}}
         <aside class="xl:col-span-1">
             <form wire:submit.prevent="changePhoto"
-                class="h-full bg-white border border-default-medium rounded-base p-6 lg:p-8 flex flex-col items-center text-center">
+                class="h-full bg-white border border-default-medium rounded-base p-6 lg:p-8 flex flex-col gap-4 items-center text-center">
                 {{-- Profile Image --}}
                 <div
-                    class="mb-2 relative w-4/5 max-w-52 aspect-square rounded-full object-cover border-4 border-white shadow-sm ring-1 ring-default-medium overflow-hidden">
+                    class="relative w-4/5 max-w-52 aspect-square rounded-full object-cover border-4 border-white shadow-sm ring-1 ring-default-medium overflow-hidden">
                     <input wire:model="img" name="img" id="img" type="file" accept="image/*" class="hidden">
                     {{-- Loading Indicator --}}
                     <div wire:loading.flex wire:target='img'
@@ -38,7 +38,7 @@
                 <x-form.error-validation name="img" />
 
                 {{-- User Info --}}
-                <div class="mt-5">
+                <div>
                     <h2 class="text-xl font-bold text-heading">
                         {{ $name }}
                     </h2>
@@ -50,7 +50,7 @@
 
                 {{-- Role --}}
                 <span
-                    class="inline-flex items-center gap-1.5 mt-4 px-3 py-1.5 text-xs font-medium rounded-full bg-emerald-600/10 text-emerald-700 border border-emerald-600/20">
+                    class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-full bg-emerald-600/10 text-emerald-700 border border-emerald-600/20">
                     {{ ucfirst($role) }}
                 </span>
 
@@ -84,6 +84,7 @@
                     <x-form.input type="text" name="name" placeholder="Your name" label="Name" bg="neutral" />
                     {{-- Email --}}
                     <x-form.input type="text" name="email" placeholder="Your email" label="Email" bg="neutral" />
+                    @can('admin')
                     {{-- Department --}}
                     <x-form.input type="text" name="department" placeholder="Your department" label="Department"
                         bg="neutral" />
@@ -97,7 +98,14 @@
                     {{-- Status --}}
                     <x-form.select-input :data="['0' => 'Inactive', '1' => 'Active']" name="status" label="Status"
                         empty="Choose status" :selected="$status" />
+                    @else
 
+                    <x-form.title-text title="Department" value="{{ $department }}" />
+                    <x-form.title-text title="Position" value="{{ $position }}" />
+                    <x-form.title-text title="Role" value="{{ ucfirst($role) }}" />
+                    <x-form.title-text title="Status" value="{{ $status === '1' ? 'Active' : 'Inactive' }}" />
+
+                    @endcan
                 </div>
 
                 {{-- Save Button --}}
