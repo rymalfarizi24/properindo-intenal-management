@@ -114,9 +114,9 @@
                 <li>
                     <x-dashboard.link href="/notification" routeActive="notification*">
                         <x-slot:icon>
-                            <x-icons.notification size="26" />
+                            <x-icons.notification size="27" />
                         </x-slot:icon>
-                        Notifications
+                        Notification
                     </x-dashboard.link>
                 </li>
 
@@ -138,7 +138,7 @@
                     <x-dashboard.link href="/profile" routeActive="profile*">
 
                         <x-slot:icon>
-                            <x-icons.user size="26" />
+                            <x-icons.user size="24" />
                         </x-slot:icon>
 
                         Profile
