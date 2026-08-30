@@ -9,7 +9,7 @@
     @livewireStyles
 
     {{-- favicon --}}
-    <link rel="icon" type="image/png" href="{{ asset('img/logo/logo-only.png') }}">
+    <link rel="icon" type="image/webp" href="{{ asset('img/logo-only.webp') }}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

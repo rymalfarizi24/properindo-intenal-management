@@ -12,18 +12,14 @@
 
         {{-- Logo & Brand --}}
         <div
-            class="p-2 pt-4 flex items-center border-b border-gray-200 dark:border-gray-700 justify-start sm:justify-center">
-
-            <a href="/" wire:naviigate>
-                <img src="{{ asset('img/logo.png') }}" alt="PT Properindo Enviro Tech"
-                    class="h-24 object-contain -my-2">
+            class="p-2 pt-4 flex gap-x-1 items-center border-b border-gray-200 dark:border-gray-700 justify-start sm:justify-center">
+            <a href="/" wire:navigate class="block mt-3 mb-2">
+                <img src="{{ asset('img/logo.webp') }}" alt="PT Properindo Enviro Tech" class="w-50 object-contain">
             </a>
-
-            {{-- Mobile Close Button --}}
-            <div class="ml-auto">
+            {{-- Close Button --}}
+            <div>
                 <x-dashboard.side-button />
             </div>
-
         </div>
 
 

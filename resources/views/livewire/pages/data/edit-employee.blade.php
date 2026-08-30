@@ -30,7 +30,8 @@
                     @elseif ($lastImg)
                     <img class="object-cover w-full h-full" src="{{ $lastImg }}" alt="{{ $name }}">
                     @else
-                    <img class="object-cover w-full h-full" src="/img/person-logo.png" alt="Person Logo">
+                    <img class="object-cover w-full h-full" src="{{ asset('img/unknown-person.webp') }}"
+                        alt="Person Logo">
                     @endif
                 </div>
 

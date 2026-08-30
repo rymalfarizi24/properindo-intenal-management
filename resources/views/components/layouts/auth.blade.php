@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <link rel="icon" type="image/png" href="{{ asset('img/logo/logo-only.png') }}">
+    <link rel="icon" type="image/webp" href="{{ asset('img/logo-only.webp') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap"
@@ -20,8 +20,8 @@
         {{-- Form --}}
         <section class="w-full md:w-1/2 flex flex-col justify-center px-6 py-10 lg:px-8">
             <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-                <img src="{{ asset('img/logo.png') }}" alt="PT Properindo Enviro Tech"
-                    class="mx-auto w-80 grayscale-50">
+                <img src="{{ asset('img/logo.webp') }}" alt="PT Properindo Enviro Tech"
+                    class="mx-auto w-80 grayscale-50 mb-4">
                 <h2 class="text-center text-2xl/9 font-bold tracking-tight text-gray-900">
                     Sign in to your account
                 </h2>
@@ -31,7 +31,7 @@
             </div>
         </section>
         <section class="w-1/2 bg-center bg-cover hidden md:block"
-            style="background-image: url('{{ asset('img/auth-img.jpg') }}')">
+            style="background-image: url('{{ asset('img/auth-img.webp') }}')">
 
         </section>
     </main>
