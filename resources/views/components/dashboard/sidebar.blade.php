@@ -138,7 +138,7 @@
                     <x-dashboard.link href="/profile" routeActive="profile*">
 
                         <x-slot:icon>
-                            <x-icons.user size="24" />
+                            <x-icons.profile size="24" />
                         </x-slot:icon>
 
                         Profile
