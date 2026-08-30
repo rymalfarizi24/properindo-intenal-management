@@ -2,12 +2,9 @@
 
 namespace App\Providers;
 
-// use App\Models\Employee;
-
 use App\Models\Employee;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
-// use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
