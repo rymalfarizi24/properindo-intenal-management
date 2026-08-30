@@ -2,15 +2,13 @@
 
     {{-- Header --}}
     <div class="mb-6">
-
         <h1 class="text-2xl font-bold text-gray-900">
-            Dashboard Pekerjaan
+            Task Dashboard
         </h1>
 
         <p class="mt-1 text-sm text-gray-500">
-            Ringkasan dan monitoring pekerjaan internal.
+            Overview and monitoring of internal tasks.
         </p>
-
     </div>
 
 
@@ -18,7 +16,7 @@
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
 
         {{-- Total --}}
-        <x-ui.card-stat title="Total Pekerjaan" :value="$totalTasks" description="Seluruh pekerjaan">
+        <x-ui.card-stat title="Total Tasks" :value="$totalTasks" description="All tasks" color="blue">
             <x-slot:icon>
                 <x-icons.task size="24" />
             </x-slot:icon>
@@ -26,7 +24,8 @@
 
 
         {{-- Not Started --}}
-        <x-ui.card-stat title="Belum Mulai" :value="$notStartedTasks" description="Menunggu untuk dikerjakan">
+        <x-ui.card-stat title="Pending" :value="$statusCounts['pending'] ?? 0" description="Waiting to be started"
+            color="gray">
             <x-slot:icon>
                 <x-icons.clock size="24" />
             </x-slot:icon>
@@ -34,7 +33,8 @@
 
 
         {{-- In Progress --}}
-        <x-ui.card-stat title="Dalam Proses" :value="$inProgressTasks" description="Sedang dikerjakan">
+        <x-ui.card-stat title="Progress" :value="$statusCounts['progress'] ?? 0" description="Currently being worked on"
+            color="blue">
             <x-slot:icon>
                 <x-icons.task-progress size="24" />
             </x-slot:icon>
@@ -42,7 +42,8 @@
 
 
         {{-- Completed --}}
-        <x-ui.card-stat title="Selesai" :value="$completedTasks" description="Pekerjaan telah selesai">
+        <x-ui.card-stat title="Completed" :value="$statusCounts['completed'] ?? 0" description="Completed tasks"
+            color="green">
             <x-slot:icon>
                 <x-icons.task-check size="24" />
             </x-slot:icon>
@@ -50,8 +51,8 @@
 
 
         {{-- Approaching Deadline --}}
-        <x-ui.card-stat title="Mendekati Deadline" :value="$approachingDeadlineTasks"
-            description="Deadline dalam waktu dekat">
+        <x-ui.card-stat title="Approaching Deadline" :value="$approachingDeadlineTasks" description="Tasks due soon"
+            color="yellow">
             <x-slot:icon>
                 <x-icons.calendar size="24" />
             </x-slot:icon>
@@ -59,7 +60,7 @@
 
 
         {{-- Overdue --}}
-        <x-ui.card-stat title="Melewati Deadline" :value="$overdueTasks" description="Membutuhkan perhatian">
+        <x-ui.card-stat title="Overdue" :value="$overdueTasks" description="Requires attention" color="red">
             <x-slot:icon>
                 <x-icons.warning size="24" />
             </x-slot:icon>
@@ -76,28 +77,27 @@
 
             <div class="mb-5">
                 <h2 class="font-semibold text-gray-900">
-                    Status Pekerjaan
+                    Task Status
                 </h2>
 
                 <p class="mt-1 text-sm text-gray-500">
-                    Ringkasan pekerjaan berdasarkan status.
+                    Task summary by status.
                 </p>
             </div>
 
 
             <div class="space-y-5">
 
-                {{-- Not Started --}}
+                {{-- Pending --}}
                 <div>
-
                     <div class="mb-2 flex justify-between text-sm">
 
                         <span class="text-gray-600">
-                            Belum Mulai
+                            Pending
                         </span>
 
                         <span class="font-semibold text-gray-900">
-                            {{ $notStartedTasks }}
+                            {{ $statusCounts['pending'] ?? 0 }}
                         </span>
 
                     </div>
@@ -105,25 +105,23 @@
                     <div class="h-2 overflow-hidden rounded-full bg-gray-100">
 
                         <div class="h-full rounded-full bg-gray-400"
-                            style="width: {{ $totalTasks > 0 ? ($notStartedTasks / $totalTasks) * 100 : 0 }}%">
+                            style="width: {{ $totalTasks > 0 ? ($statusCounts['pending'] ?? 0) / $totalTasks * 100 : 0 }}%">
                         </div>
 
                     </div>
-
                 </div>
 
 
-                {{-- In Progress --}}
+                {{-- Progress --}}
                 <div>
-
                     <div class="mb-2 flex justify-between text-sm">
 
                         <span class="text-gray-600">
-                            Dalam Proses
+                            Progress
                         </span>
 
                         <span class="font-semibold text-gray-900">
-                            {{ $inProgressTasks }}
+                            {{ $statusCounts['progress'] ?? 0 }}
                         </span>
 
                     </div>
@@ -131,25 +129,23 @@
                     <div class="h-2 overflow-hidden rounded-full bg-gray-100">
 
                         <div class="h-full rounded-full bg-blue-500"
-                            style="width: {{ $totalTasks > 0 ? ($inProgressTasks / $totalTasks) * 100 : 0 }}%">
+                            style="width: {{ $totalTasks > 0 ? ($statusCounts['progress'] ?? 0) / $totalTasks * 100 : 0 }}%">
                         </div>
 
                     </div>
-
                 </div>
 
 
                 {{-- Completed --}}
                 <div>
-
                     <div class="mb-2 flex justify-between text-sm">
 
                         <span class="text-gray-600">
-                            Selesai
+                            Completed
                         </span>
 
                         <span class="font-semibold text-gray-900">
-                            {{ $completedTasks }}
+                            {{ $statusCounts['completed'] ?? 0 }}
                         </span>
 
                     </div>
@@ -157,11 +153,10 @@
                     <div class="h-2 overflow-hidden rounded-full bg-gray-100">
 
                         <div class="h-full rounded-full bg-green-500"
-                            style="width: {{ $totalTasks > 0 ? ($completedTasks / $totalTasks) * 100 : 0 }}%">
+                            style="width: {{ $totalTasks > 0 ? ($statusCounts['completed'] ?? 0) / $totalTasks * 100 : 0 }}%">
                         </div>
 
                     </div>
-
                 </div>
 
             </div>
@@ -175,21 +170,17 @@
             <div class="mb-5 flex items-start justify-between">
 
                 <div>
-
                     <h2 class="font-semibold text-gray-900">
-                        Mendekati Deadline
+                        Approaching Deadline
                     </h2>
 
                     <p class="mt-1 text-sm text-gray-500">
-                        Pekerjaan yang membutuhkan perhatian.
+                        Tasks that require attention.
                     </p>
-
                 </div>
 
                 <a href="/data/tasks" wire:navigate class="text-sm font-medium text-blue-600 hover:underline">
-
-                    Lihat Semua
-
+                    View All
                 </a>
 
             </div>
@@ -203,7 +194,7 @@
 
                         <tr>
                             <th class="pb-3 font-medium">
-                                Pekerjaan
+                                Task
                             </th>
 
                             <th class="pb-3 font-medium">
@@ -242,9 +233,7 @@
                             <td class="py-4">
 
                                 <span class="rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-600">
-
                                     {{ ucfirst($task->status) }}
-
                                 </span>
 
                             </td>
@@ -256,9 +245,7 @@
                         <tr>
 
                             <td colspan="4" class="py-8 text-center text-gray-500">
-
-                                Tidak ada pekerjaan yang mendekati deadline.
-
+                                No tasks are approaching their deadline.
                             </td>
 
                         </tr>

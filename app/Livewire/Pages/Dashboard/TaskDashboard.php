@@ -18,17 +18,10 @@ class TaskDashboard extends Component
 
         $totalTasks = (clone $tasks)->count();
 
-        $notStartedTasks = (clone $tasks)
-            ->where('status', 'pending')
-            ->count();
-
-        $inProgressTasks = (clone $tasks)
-            ->where('status', 'progress')
-            ->count();
-
-        $completedTasks = (clone $tasks)
-            ->where('status', 'completed')
-            ->count();
+        $statusCounts = (clone $tasks)
+            ->selectRaw('status, COUNT(*) as count')
+            ->groupBy('status')
+            ->pluck('count', 'status');
 
         $approachingDeadlineTasks = (clone $tasks)
             ->where('status', '!=', 'completed')
@@ -56,9 +49,7 @@ class TaskDashboard extends Component
 
         return view('livewire.pages.dashboard.task-dashboard', compact(
             'totalTasks',
-            'notStartedTasks',
-            'inProgressTasks',
-            'completedTasks',
+            'statusCounts',
             'approachingDeadlineTasks',
             'overdueTasks',
             'approachingTasks',

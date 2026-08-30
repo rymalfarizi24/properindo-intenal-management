@@ -48,7 +48,13 @@
                 <div class="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
 
                     <h2 class="text-sm font-semibold text-gray-900">
-                        {{ $notification->title }}
+                        @if ($notification->type === 'reminder')
+                        Deadline Reminder
+                        @elseif ($notification->type === 'alert')
+                        Deadline Alert
+                        @else
+                        Task Notification
+                        @endif
                     </h2>
 
                     <span class="whitespace-nowrap text-xs text-gray-400">

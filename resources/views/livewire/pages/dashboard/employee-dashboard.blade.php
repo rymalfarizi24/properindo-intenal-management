@@ -16,7 +16,8 @@
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
 
         {{-- Total Employees --}}
-        <x-ui.card-stat title="Total Employees" :value="$totalEmployees" description="Total registered employees">
+        <x-ui.card-stat title="Total Employees" color="blue" :value="$totalEmployees"
+            description="Total registered employees">
             <x-slot:icon>
                 <x-icons.users size="24" />
             </x-slot:icon>
@@ -24,7 +25,8 @@
 
 
         {{-- Active Employees --}}
-        <x-ui.card-stat title="Active Employees" :value="$activeEmployees" description="Currently active employees">
+        <x-ui.card-stat title="Active Employees" color="green" :value="$activeEmployees"
+            description="Currently active employees">
             <x-slot:icon>
                 <x-icons.user-check size="24" />
             </x-slot:icon>
@@ -32,7 +34,7 @@
 
 
         {{-- Inactive Employees --}}
-        <x-ui.card-stat title="Inactive Employees" :value="$inactiveEmployees"
+        <x-ui.card-stat title="Inactive Employees" color="red" :value="$inactiveEmployees"
             description="Currently inactive employees">
             <x-slot:icon>
                 <x-icons.user-x size="24" />
