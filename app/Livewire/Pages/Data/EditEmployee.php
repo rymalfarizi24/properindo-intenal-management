@@ -28,7 +28,7 @@ class EditEmployee extends Component
 
     public array $employee;
 
-    public function mount(?string $employee_id)
+    public function mount(?string $employee_id = null)
     {
         if ($employee_id) {
             $this->employee = Employee::find($employee_id)->toArray();
@@ -36,7 +36,7 @@ class EditEmployee extends Component
             $this->employee = auth()->user()->toArray();
         }
 
-        $this->employee_id = $employee_id;
+        $this->employee_id = $this->employee['id'];
         $this->name = $this->employee['name'];
         $this->department = $this->employee['department'];
         $this->position = $this->employee['position'];

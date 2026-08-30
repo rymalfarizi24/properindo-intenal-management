@@ -14,7 +14,7 @@
         @else
         {{-- Task --}}
         <div class="mb-3 col-span-full">
-            <p class="text-sm font-medium text-gray-700">
+            <p class="mb-2.5 text-sm font-bold text-gray-800">
                 Task
             </p>
 
@@ -23,7 +23,7 @@
 
         {{-- Priority --}}
         <div class="mb-3">
-            <p class="text-sm font-medium text-gray-700">
+            <p class="mb-2.5 text-sm font-bold text-gray-800">
                 Priority
             </p>
 
@@ -32,7 +32,7 @@
 
         {{-- Deadline --}}
         <div class="mb-3">
-            <p class="text-sm font-medium text-gray-700">
+            <p class="mb-2.5 text-sm font-bold text-gray-800">
                 Deadline
             </p>
 

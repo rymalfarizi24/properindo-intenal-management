@@ -8,7 +8,6 @@ use App\Livewire\Pages\Data\EditEmployee;
 use App\Livewire\Pages\Data\Employee;
 use App\Livewire\Pages\Data\Task;
 use App\Livewire\Pages\Notification;
-use App\Livewire\Pages\Profile;
 use App\Livewire\Pages\SignIn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/employees', EmployeeDashboard::class)->name('employee-dashboard');
     Route::get('/notification', Notification::class)->name('notification');
     Route::get('/data/tasks', Task::class)->name('tasks-data');
-    Route::get('/profile', Profile::class)->middleware('auth')->name('profile');
+    Route::get('/profile', EditEmployee::class)->name('profile');
 });
 
 Route::middleware('role:admin,supervisor')->group(function () {
