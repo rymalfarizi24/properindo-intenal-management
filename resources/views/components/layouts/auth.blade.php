@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap"
         rel="stylesheet" />
-    <title>{{ $title ?? 'Properindo Internall App' }}</title>
+    <title>{{ $title ?? 'Properindo Internal App' }}</title>
 </head>
 
 <body class="h-full bg-gray-100">
