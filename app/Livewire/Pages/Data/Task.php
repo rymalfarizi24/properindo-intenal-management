@@ -5,6 +5,7 @@ namespace App\Livewire\Pages\Data;
 use App\Models\Employee;
 use App\Models\Task as ModelsTask;
 use Illuminate\Support\Facades\Gate;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Task extends Component
@@ -28,6 +29,12 @@ class Task extends Component
     public function render()
     {
         return view('livewire.pages.data.task');
+    }
+
+    #[On('reset-error')]
+    public function resetError()
+    {
+        $this->resetErrorBag();
     }
 
     public function save()

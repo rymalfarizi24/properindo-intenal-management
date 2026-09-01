@@ -20,7 +20,7 @@
                 employee_id=@js($data->employee_id);
                 status=@js($data->status);
                 priority=@js($data->priority);
-                deadline=@js($data->deadline);
+                deadline=@js($data->deadline->format('Y-m-d\TH:i'));
                 ">
             <x-icons.pen size='20' />
             Edit

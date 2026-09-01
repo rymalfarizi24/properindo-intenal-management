@@ -71,7 +71,6 @@ class TasksTable extends Component
         $this->resetPage();
     }
 
-
     public function destroy($id)
     {
         Task::destroy($id);

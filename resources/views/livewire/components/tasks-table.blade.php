@@ -427,7 +427,7 @@
                                         employee_id = @js($task->employee_id);
                                         status = @js($task->status);
                                         priority = @js($task->priority);
-                                        deadline = @js($task->deadline);
+                                        deadline = @js($task->deadline->format('Y-m-d\TH:i'));
                                     ">
 
                                 <x-icons.pen size="18" />
