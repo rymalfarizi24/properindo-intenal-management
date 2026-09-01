@@ -217,9 +217,11 @@
                             Joined
                         </th>
 
+                        @can('admin')
                         <th class="px-6 py-4 text-right font-medium">
                             Action
                         </th>
+                        @endcan
 
                     </tr>
 
@@ -355,13 +357,14 @@
 
                         </td>
 
-
+                        @can('admin')
                         {{-- Action --}}
                         <td class="px-6 py-4 text-right">
 
                             <x-dropdown :id="$employee->id" />
 
                         </td>
+                        @endcan
 
                     </tr>
 
