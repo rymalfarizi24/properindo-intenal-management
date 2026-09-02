@@ -84,7 +84,7 @@ class EmployeesTable extends Component
 
         ActivityLog::create([
             'changed_by' => $changed_by,
-            'old_data' => json_encode($employee->toArray()),
+            'old_data' => $employee->toArray(),
             'action' => 'delete',
         ]);
 

@@ -178,22 +178,17 @@
                         </td>
 
 
+                        @php
+                            $employee = $this->getEmployeeName($log);
+                        @endphp
                         {{-- Employee --}}
                         <td class="px-6 py-4">
-
-                            @if ($log->employee)
                             <div class="font-medium text-gray-900">
-                                {{ $log->employee->name }}
+                                {{ $employee['name'] ?? 'Unknown' }}
                             </div>
                             <div class="mt-1 text-xs text-gray-500">
-                                {{ $log->employee->email }}
+                                {{ $employee['email'] ?? 'N/A' }}
                             </div>
-                            @else
-                            <span class="text-gray-400">
-                                Deleted Employee
-                            </span>
-                            @endif
-
                         </td>
 
 
@@ -315,7 +310,7 @@
                         </p>
 
                         <p class="mt-1 font-medium text-gray-900">
-                            {{ $selectedLog->employee?->name ?? 'Deleted Employee' }}
+                            {{ $this->getEmployeeName($selectedLog)['name'] ?? 'Unknown' }}
                         </p>
 
                     </div>

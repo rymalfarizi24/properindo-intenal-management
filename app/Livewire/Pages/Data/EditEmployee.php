@@ -70,8 +70,8 @@ class EditEmployee extends Component
         ActivityLog::create([
             'changed_by' => auth()->user()->id,
             'employee_id' => $this->employee_id,
-            'old_data' => json_encode($changed_data['old']),
-            'new_data' => json_encode($changed_data['new']),
+            'old_data' => $changed_data['old'],
+            'new_data' => $changed_data['new'],
             'action' => 'update',
         ]);
         $this->dispatch('toast', type: 'success', message: 'Profile updated successfully!');
@@ -110,8 +110,8 @@ class EditEmployee extends Component
         ActivityLog::create([
             'changed_by' => auth()->user()->id,
             'employee_id' => $this->employee_id,
-            'old_data' => json_encode(['img' => $this->lastImg]),
-            'new_data' => json_encode(['img' => $path]),
+            'old_data' => ['img' => $this->lastImg],
+            'new_data' => ['img' => $path],
             'action' => 'update',
         ]);
 
@@ -130,8 +130,8 @@ class EditEmployee extends Component
         ActivityLog::create([
             'changed_by' => auth()->user()->id,
             'employee_id' => $this->employee_id,
-            'old_data' => json_encode(['password' => '********']),
-            'new_data' => json_encode(['password' => '********']),
+            'old_data' => ['password' => '********'],
+            'new_data' => ['password' => '********'],
             'action' => 'update',
         ]);
 

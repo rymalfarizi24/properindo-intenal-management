@@ -42,12 +42,13 @@ class CreateEmployee extends Component
 
         Employee::create($validated_data);
 
-        ActivityLog::create([
+        $log = ActivityLog::create([
             'changed_by' => auth()->user()->id,
             'old_data' => null,
-            'new_data' => json_encode($validated_data),
+            'new_data' => $validated_data,
             'action' => 'create',
         ]);
+
         // try {
         // } catch (\Exception $e) {
         //     $this->dispatch('toast', type: 'error', message: $e->getMessage());
