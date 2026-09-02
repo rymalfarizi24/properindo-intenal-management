@@ -27,7 +27,7 @@
                 id = '';
                 title = '';
                 employee_id = '';
-                status = '';
+                status = 'pending';
                 priority = '';
                 deadline = '';
             ">

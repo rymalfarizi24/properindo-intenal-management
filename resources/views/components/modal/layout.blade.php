@@ -1,8 +1,8 @@
-@props(['title'])
+@props(['title', 'width' => 'max-w-2xl'])
 
 <div
     class="bg-black/50 overflow-hidden fixed flex top-0 right-0 left-0 bottom-0 z-20 justify-center items-center w-full md:inset-0">
-    <div x-on:click.outside="isOpenModal=false" class="relative p-4 w-full max-w-xl">
+    <div x-on:click.outside="isOpenModal=false" class="relative p-4 w-full {{ $width }}">
         <!-- Modal content -->
         <div
             class="relative bg-neutral-primary-soft border border-default rounded-base shadow-sm p-4 md:p-6 max-h-[95vh] overflow-y-auto">

@@ -19,7 +19,8 @@ class ActivityLogs extends Component
     #[Url]
     public string $date = '';
 
-    public ?ActivityLog $selectedLog = null;
+    // Selected log for detail view
+    public $selectedLog;
 
     public function render()
     {

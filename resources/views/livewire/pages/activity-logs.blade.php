@@ -1,4 +1,27 @@
-<div class="w-full mx-auto">
+<div x-data="{
+        isOpenModal: false,
+        selectedLog: null,
+        employee_name: '',
+
+        openModal(log) {
+            this.isOpenModal = true;
+            this.selectedLog = log;
+
+            if (log?.action === 'update') {
+                this.employee_name = log.employee.name ?? 'Unknown';
+            } else if (log?.action === 'create') {
+                this.employee_name = log.new_data.name ?? 'Unknown';
+            } else {
+                this.employee_name = log.old_data.name ?? 'Unknown';
+            }
+        },
+
+        closeModal() {
+            this.isOpenModal = false;
+        }
+
+
+    }" @keyup.escape="closeModal" class="w-full mx-auto">
 
     {{-- Header --}}
     <div class="mb-6">
@@ -179,7 +202,7 @@
 
 
                         @php
-                            $employee = $this->getEmployeeName($log);
+                        $employee = $this->getEmployeeName($log);
                         @endphp
                         {{-- Employee --}}
                         <td class="px-6 py-4">
@@ -205,9 +228,9 @@
 
                         {{-- Detail --}}
                         <td class="px-6 py-4 text-right">
-                            <button wire:click="showDetail({{ $log->id }})" class="font-medium text-blue-600
-                                           hover:text-blue-800 hover:underline cursor-pointer">
-
+                            <button x-on:click="
+                                openModal(@js($log));
+                            " class="font-medium text-blue-600 hover:text-blue-800 hover:underline cursor-pointer">
                                 View Detail
                             </button>
                         </td>
@@ -244,181 +267,105 @@
 
     </section>
 
-
-    {{-- Detail Modal --}}
-    @if ($selectedLog)
-
-    <div class="fixed inset-0 z-50 flex items-center justify-center
-                   bg-black/50 p-4" wire:click.self="closeDetail">
-
-        <div class="w-full max-w-3xl rounded-2xl bg-white shadow-xl">
-
-            {{-- Modal Header --}}
-            <div class="flex items-center justify-between
-                           border-b border-gray-100 px-6 py-4">
-
-                <div>
-
-                    <h2 class="text-lg font-semibold text-gray-900">
-                        Activity Detail
-                    </h2>
-
-                    <p class="mt-1 text-sm text-gray-500">
-                        {{ $selectedLog->created_at->format('d M Y H:i:s') }}
-                    </p>
-
-                </div>
-
-                <button wire:click="closeDetail" class="text-gray-400 hover:text-gray-600 cursor-pointer">
-                    <x-icons.cross size="20" />
-                </button>
-
-            </div>
-
-
+    <div x-show="isOpenModal" x-cloak x-on:toast.window="closeModal">
+        <x-modal.layout title="Activity Detail" width="max-w-3xl">
             {{-- Modal Body --}}
             <div class="max-h-[70vh] overflow-y-auto p-6">
-
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-
                     <div>
                         <p class="text-xs font-medium uppercase text-gray-400">
                             Action
                         </p>
 
-                        <p class="mt-1 font-medium text-gray-900">
-                            {{ ucfirst($selectedLog->action) }}
+                        <p x-text="selectedLog?.action" class="mt-1 font-medium text-gray-900 capitalize">
                         </p>
                     </div>
 
+                    <div>
+                        <p class="text-xs font-medium uppercase text-gray-400">
+                            Date & Time
+                        </p>
+                        <p x-text="new Date(selectedLog?.created_at).toLocaleString('id-ID', {
+                            day: 'numeric',
+                            month: 'short',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        })" class="mt-1 font-medium text-gray-900">
+                        </p>
+                    </div>
+
+                    <div>
+                        <p class="text-xs font-medium uppercase text-gray-400">
+                            Employee
+                        </p>
+                        <p x-text="employee_name" class="mt-1 font-medium text-gray-900">
+                        </p>
+                    </div>
 
                     <div>
                         <p class="text-xs font-medium uppercase text-gray-400">
                             Changed By
                         </p>
-
-                        <p class="mt-1 font-medium text-gray-900">
-                            {{ $selectedLog->changedBy->name }}
+                        <p x-text="selectedLog?.changed_by?.name" class="mt-1 font-medium text-gray-900">
                         </p>
                     </div>
 
-
-                    <div class="sm:col-span-2">
-
-                        <p class="text-xs font-medium uppercase text-gray-400">
-                            Employee
-                        </p>
-
-                        <p class="mt-1 font-medium text-gray-900">
-                            {{ $this->getEmployeeName($selectedLog)['name'] ?? 'Unknown' }}
-                        </p>
-
-                    </div>
-
                 </div>
-
-
-                {{-- Data Comparison --}}
-                @if ($selectedLog->action === 'update')
-
-                <div class="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
-
-                    {{-- Old Data --}}
-                    <div>
-
-                        <h3 class="mb-2 text-sm font-semibold text-gray-900">
-                            Previous Data
-                        </h3>
-
-                        <div class="rounded-xl bg-gray-50 p-4
-                                           font-mono text-xs text-gray-600">
-
-                            <pre
-                                class="whitespace-pre-wrap">{{ json_encode($selectedLog->old_data, JSON_PRETTY_PRINT) }}</pre>
-
-                        </div>
-
-                    </div>
-
-
-                    {{-- New Data --}}
-                    <div>
-
-                        <h3 class="mb-2 text-sm font-semibold text-gray-900">
-                            New Data
-                        </h3>
-
-                        <div class="rounded-xl bg-gray-50 p-4
-                                           font-mono text-xs text-gray-600">
-
-                            <pre
-                                class="whitespace-pre-wrap">{{ json_encode($selectedLog->new_data, JSON_PRETTY_PRINT) }}</pre>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                @elseif ($selectedLog->action === 'create')
-
-                <div class="mt-6">
-
-                    <h3 class="mb-2 text-sm font-semibold text-gray-900">
-                        Created Data
-                    </h3>
-
-                    <div class="rounded-xl bg-gray-50 p-4
-                                       font-mono text-xs text-gray-600">
-
-                        <pre
-                            class="whitespace-pre-wrap">{{ json_encode($selectedLog->new_data, JSON_PRETTY_PRINT) }}</pre>
-
-                    </div>
-
-                </div>
-
-                @elseif ($selectedLog->action === 'delete')
-
-                <div class="mt-6">
-
-                    <h3 class="mb-2 text-sm font-semibold text-gray-900">
-                        Deleted Data
-                    </h3>
-
-                    <div class="rounded-xl bg-gray-50 p-4
-                                       font-mono text-xs text-gray-600">
-
-                        <pre
-                            class="whitespace-pre-wrap">{{ json_encode($selectedLog->old_data, JSON_PRETTY_PRINT) }}</pre>
-
-                    </div>
-
-                </div>
-
-                @endif
-
+                </p>
             </div>
 
+            {{-- Data Comparison --}}
+            <div x-show="selectedLog?.action === 'update'" class="grid grid-cols-1 gap-4 md:grid-cols-2">
+                {{-- Old Data --}}
+                <div>
+                    <h3 class="mb-2 text-sm font-semibold text-gray-900">
+                        Previous Data
+                    </h3>
+                    <div class="rounded-xl bg-gray-50 p-4
+                                                                   font-mono text-xs text-gray-600">
+                        <pre x-text="JSON.stringify(selectedLog?.old_data, null, 2)" class="whitespace-pre-wrap"></pre>
+                    </div>
+                </div>
 
-            {{-- Modal Footer --}}
-            <div class="flex justify-end border-t border-gray-100
-                           px-6 py-4">
+                {{-- New Data --}}
+                <div>
+                    <h3 class="mb-2 text-sm font-semibold text-gray-900">
+                        New Data
+                    </h3>
+                    <div class="rounded-xl bg-gray-50 p-4 font-mono text-xs text-gray-600">
+                        <pre x-text="JSON.stringify(selectedLog?.new_data, null, 2)" class="whitespace-pre-wrap"></pre>
 
-                <button wire:click="closeDetail" class="rounded-lg border border-gray-300
-                               px-4 py-2 text-sm font-medium
-                               text-gray-700 hover:bg-gray-50">
+                    </div>
+                </div>
+            </div>
 
+            <div x-show="selectedLog?.action === 'create'">
+                <h3 class="mb-2 text-sm font-semibold text-gray-900">
+                    Created Data
+                </h3>
+                <div class="rounded-xl bg-gray-50 p-4
+                                                               font-mono text-xs text-gray-600">
+                    <pre class="whitespace-pre-wrap" x-text="JSON.stringify(selectedLog?.new_data, null, 2)"></pre>
+                </div>
+            </div>
+
+            <div x-show="selectedLog?.action === 'delete'">
+                <h3 class="mb-2 text-sm font-semibold text-gray-900">
+                    Deleted Data
+                </h3>
+                <div class="rounded-xl bg-gray-50 p-4 font-mono text-xs text-gray-600">
+                    <p class="whitespace-pre-wrap" x-text="JSON.stringify(selectedLog?.old_data, null, 2)"></p>
+                </div>
+            </div>
+
+            <div class="flex justify-end border-t border-gray-100 px-6 py-4">
+                <button @click="closeModal"
+                    class="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 cursor-pointer">
                     Close
-
                 </button>
-
             </div>
-
-        </div>
-
+        </x-modal.layout>
     </div>
-
-    @endif
 
 </div>
