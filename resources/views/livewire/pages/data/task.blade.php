@@ -38,10 +38,8 @@
 
     </div>
 
-
     {{-- Tasks Table --}}
-    <livewire:components.tasks-table lazy :employees="$employees" />
-
+    <livewire:components.tasks-table :refresh-key="$refreshKey" lazy :employees="$employees" />
 
     {{-- Modal --}}
     <div x-show="isOpenModal" x-cloak x-on:toast.window="isOpenModal = false">

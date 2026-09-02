@@ -4,6 +4,8 @@ namespace App\Livewire\Components;
 
 use App\Models\Task;
 use Illuminate\Support\Facades\Gate;
+use Livewire\Attributes\On;
+use Livewire\Attributes\Reactive;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -23,8 +25,10 @@ class TasksTable extends Component
     #[Url]
     public $deadline = '';
 
-    public array $employees = [];
+    #[Reactive]
+    public int $refreshKey;
 
+    public array $employees = [];
 
     public function mount(?array $employees = null)
     {
@@ -58,6 +62,9 @@ class TasksTable extends Component
     {
         return view('components.placeholder.tasks-table');
     }
+
+    #[On('task-saved')]
+    public function refreshTable() {}
 
     public function resetFilters()
     {

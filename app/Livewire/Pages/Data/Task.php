@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Pages\Data;
 
+use App\Livewire\Components\TasksTable;
 use App\Models\Employee;
 use App\Models\Task as ModelsTask;
 use Illuminate\Support\Facades\Gate;
@@ -16,6 +17,8 @@ class Task extends Component
     public string $priority = '';
     public $deadline = '';
     public string $employee_id = '';
+
+    public int $refreshKey = 0;
 
     public array $employees = [];
 
