@@ -17,14 +17,13 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 {{-- Name --}}
-                <x-form.input type="text" name="name" placeholder="Your name" label="Name" bg="neutral" />
+                <x-form.input type="text" name="name" placeholder="Your name" label="Name" />
                 {{-- Email --}}
-                <x-form.input type="text" name="email" placeholder="Your email" label="Email" bg="neutral" />
+                <x-form.input type="text" name="email" placeholder="Your email" label="Email" />
                 {{-- Department --}}
-                <x-form.input type="text" name="department" placeholder="Your department" label="Department"
-                    bg="neutral" />
+                <x-form.input type="text" name="department" placeholder="Your department" label="Department" />
                 {{-- Position --}}
-                <x-form.input type="text" name="position" placeholder="Your position" label="Position" bg="neutral" />
+                <x-form.input type="text" name="position" placeholder="Your position" label="Position" />
                 {{-- Role --}}
                 <x-form.select-input
                     :data="['employee' => 'Employee', 'admin' => 'Admin', 'supervisor' => 'Supervisor']" name="role"
@@ -33,11 +32,10 @@
                 <x-form.select-input :data="['0' => 'Inactive', '1' => 'Active']" name="status" label="Status"
                     empty="Choose status" :selected="$status" />
                 {{-- Create Password --}}
-                <x-form.input-password name="password" placeholder="Enter your password" label="Password"
-                    bg="neutral" />
+                <x-form.input-password name="password" placeholder="Enter your password" label="Password" />
                 {{-- Confirm Password --}}
                 <x-form.input-password name="confirm_password" placeholder="Confirm your password"
-                    label="Confirm Password" bg="neutral" />
+                    label="Confirm Password" />
 
             </div>
 

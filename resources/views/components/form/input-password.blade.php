@@ -19,10 +19,9 @@ $color = [
             <x-icons.eye size="20" class="text-gray-400 absolute top-1/2 -translate-y-1/2 right-4" />
         </div>
         <input {{ $attributes }} wire:model="{{ $name }}" :type="show ? 'text' : 'password'" name="{{ $name }}"
-            id="{{ $name }}" autocomplete="{{ $name }}" class="{{ $color[$bg] }} 
+            id="{{ $name }}" autocomplete="{{ $name }}" class="
                 block w-full rounded-lg px-4 py-3 text-sm text-gray-900
-                bg-white border transition
-                placeholder:text-gray-400
+                border transition placeholder:text-gray-400 bg-neutral-secondary-medium
                 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-600
                 @error($name)
                     border-red-500 focus:ring-red-500/30 focus:border-red-500

@@ -81,16 +81,14 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                     {{-- Name --}}
-                    <x-form.input type="text" name="name" placeholder="Your name" label="Name" bg="neutral" />
+                    <x-form.input type="text" name="name" placeholder="Your name" label="Name" />
                     {{-- Email --}}
-                    <x-form.input type="text" name="email" placeholder="Your email" label="Email" bg="neutral" />
+                    <x-form.input type="text" name="email" placeholder="Your email" label="Email" />
                     @can('admin')
                     {{-- Department --}}
-                    <x-form.input type="text" name="department" placeholder="Your department" label="Department"
-                        bg="neutral" />
+                    <x-form.input type="text" name="department" placeholder="Your department" label="Department" />
                     {{-- Position --}}
-                    <x-form.input type="text" name="position" placeholder="Your position" label="Position"
-                        bg="neutral" />
+                    <x-form.input type="text" name="position" placeholder="Your position" label="Position" />
                     {{-- Role --}}
                     <x-form.select-input
                         :data="['employee' => 'Employee', 'admin' => 'Admin', 'supervisor' => 'Supervisor']" name="role"
@@ -137,13 +135,13 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
                     {{-- Last Password --}}
                     <x-form.input-password x-ref="password" name="last_password" placeholder="Enter your last password"
-                        label="Last Password" bg="neutral" />
+                        label="Last Password" />
                     {{-- New Password --}}
                     <x-form.input-password x-ref="password" name="new_password" placeholder="Enter your new password"
-                        label="New Password" bg="neutral" />
+                        label="New Password" />
                     {{-- Confirm Password --}}
                     <x-form.input-password name="confirm_password" placeholder="Confirm your new password"
-                        label="Confirm Password" bg="neutral" />
+                        label="Confirm Password" />
                 </div>
 
                 <div class="w-full border-t border-default-medium pt-4 mt-4">
